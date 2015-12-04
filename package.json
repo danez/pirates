@@ -5,6 +5,7 @@
   "scripts": {
     "test": "npm run lint && mocha",
     "test:cov": "npm run lint && istanbul cover _mocha",
+    "coveralls:upload": "cat ./coverage/lcov.info | coveralls",
     "watch": "mocha -w -R min",
     "lint": "eslint ."
   },
