@@ -3,7 +3,7 @@ var path = require('path');
 var fork = require('child_process').fork;
 
 
-describe('compilers that use the pirates API', function dCompilersThatUsethePiratesAPI() {
+describe('compilers that use the pirates API', function dCompilersThatUseThePiratesAPI() {
   it('they should work', function itTheyShouldWork(done) {
     var data = '';
     var child = fork(path.resolve(__dirname, 'fixture', 'main'), {
