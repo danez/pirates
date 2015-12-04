@@ -10,6 +10,9 @@ describe('compilers that use the pirates API', function dCompilersThatUseThePira
       silent: true,
     });
     child.on('error', done);
+    child.stderr.on('data', function onErrorData(chunk) {
+      console.error('Child Error:', chunk);
+    });
     child.stdout.on('data', function onData(chunk) {
       data += chunk;
     });
