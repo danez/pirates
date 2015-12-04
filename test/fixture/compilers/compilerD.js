@@ -8,7 +8,8 @@ function matcher(filename) {
 }
 
 function compiler(code, filename) {
-  return code.replace('@@macroA', 'console.log(\'in macroA\');');
+  return code.replace('@@macroD', 'console.log(\'in macroD\')');
 }
 
-pirates.addCompiler('.js', compiler);
+pirates.addCompiler('.js', matcher, compiler);
+

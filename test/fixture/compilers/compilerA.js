@@ -2,13 +2,8 @@
 /* @pirates: ignore */
 var pirates = require('../../../');
 
-function matcher(filename) {
-  // TODO: real logic
-  return true
-}
-
 function compiler(code, filename) {
-  return code.replace('@@macroB', '@@macroA; console.log(\'in macroB\')');
+  return code.replace('@@macroA', '@@macroB; console.log(\'in macroA\')');
 }
 
 pirates.addCompiler(compiler);

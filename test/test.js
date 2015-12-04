@@ -3,28 +3,28 @@ var path = require('path');
 var fork = require('child_process').fork;
 
 
-describe('compilers that use the pirates API', function dCompilersThatUseThePiratesAPI() {
-  it('they should work', function itTheyShouldWork(done) {
-    var data = '';
-    var child = fork(path.resolve(__dirname, 'fixture', 'main'), {
-      silent: true,
-    });
-    child.on('error', done);
-    child.stdout.setEncoding('utf8');
-    child.stderr.setEncoding('utf8');
-    child.stderr.on('data', function onErrorData(chunk) {
-      console.error('Child Error:', chunk);
-    });
-    child.stdout.on('data', function onData(chunk) {
-      data += chunk;
-    });
-    child.stdout.on('end', function onEnd() {
-      expect(data.trim()).to.equal([
-        'foo',
-        'in macroA',
-        'in macroB',
-      ].join('\n'));
-      done();
-    });
+it('should work', function itTheyShouldWork(done) {
+  var data = '';
+  var child = fork(path.resolve(__dirname, 'fixture', 'main'), {
+    silent: true,
+  });
+  child.on('error', done);
+  child.stdout.setEncoding('utf8');
+  child.stderr.setEncoding('utf8');
+  child.stderr.on('data', function onErrorData(chunk) {
+    console.error('Child Error:', chunk);
+  });
+  child.stdout.on('data', function onData(chunk) {
+    data += chunk;
+  });
+  child.stdout.on('end', function onEnd() {
+    expect(data.trim()).to.equal([
+      'foo',
+      'in macroD',
+      'in macroC',
+      'in macroB',
+      'in macroA',
+    ].join('\n'));
+    done();
   });
 });
