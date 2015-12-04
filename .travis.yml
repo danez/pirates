@@ -15,4 +15,5 @@ before_script:
   - npm prune
 script:
   - npm run test:cov
+after_script:
   - npm run coveralls:upload
