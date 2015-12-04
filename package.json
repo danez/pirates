@@ -22,12 +22,12 @@
     "chai": "3.4.1",
     "chai-as-promised": "5.1.0",
     "coveralls": "2.11.4",
-    "cz-conventional-changelog": "1.1.4",
-    "eslint": "1.10.1",
-    "eslint-config-airbnb": "1.0.0",
+    "cz-conventional-changelog": "1.1.5",
+    "eslint": "1.10.3",
+    "eslint-config-airbnb": "2.0.0",
     "istanbul": "1.0.0-alpha.2",
     "mocha": "2.3.4",
-    "rewire": "2.5.0"
+    "rewire": "2.5.1"
   },
   "license": "MIT",
   "bugs": {
