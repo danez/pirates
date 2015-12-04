@@ -10,6 +10,8 @@ describe('compilers that use the pirates API', function dCompilersThatUseThePira
       silent: true,
     });
     child.on('error', done);
+    child.stdout.setEncoding('utf8');
+    child.stderr.setEncoding('utf8');
     child.stderr.on('data', function onErrorData(chunk) {
       console.error('Child Error:', chunk);
     });
