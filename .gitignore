@@ -254,8 +254,3 @@ tramp
 # cask packages
 .cask/
 
-
-### Build ###
-build
-dist
-
