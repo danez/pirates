@@ -1,5 +1,5 @@
 {
-  "extends": "airbnb/base",
+  "extends": "airbnb/legacy",
   "rules": {
     "no-console": 0,
     "spaced-comment": 0,
