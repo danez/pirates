@@ -11,7 +11,7 @@
 [![Version][version-badge]][npm-link]
 [![Downloads][downloads-badge]][npm-link]
 [![Build Status][build-badge]][build-link]
-[![Dependency Status][deps-badge]](deps-link)
+[![Dependency Status][deps-badge]][deps-link]
 [![devDependency Status][devDeps-badge]][devDeps-link]
 [![Commitizen friendly][cz-badge]][cz-link]
 [![semantic-release][sr-badge]][sr-link]
