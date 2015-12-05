@@ -11,5 +11,5 @@ function compiler(code, filename) {
   return code.replace('@@macroD', 'console.log(\'in macroD\')');
 }
 
-pirates.addCompiler('.js', matcher, compiler);
+pirates.addHook('.js', matcher, compiler);
 

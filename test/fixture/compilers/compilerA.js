@@ -6,5 +6,5 @@ function compiler(code, filename) {
   return code.replace('@@macroA', '@@macroB; console.log(\'in macroA\')');
 }
 
-pirates.addCompiler(compiler);
+pirates.addHook(compiler);
 

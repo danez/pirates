@@ -75,7 +75,7 @@ require.extensions['.js'] = function (mod, filename) {
 }
 
 // Now you can just do this!:
-pirates.addCompiler(['.js'], function matcher(filename) {
+pirates.addHook(['.js'], function matcher(filename) {
   // Here, you can inspect the filename to determine if it should be hooked or not. Just return a boolean. Files in 
   // node_modules are automatically ignored.
   
@@ -90,7 +90,7 @@ pirates.addCompiler(['.js'], function matcher(filename) {
 
 ## API
 
-### pirates.addCompiler([exts], [matcher], hook);
+### pirates.addHook([exts], [matcher], hook);
 Add a require hook. `exts` is optional and defaults to ['.js'], for convenience, if you only want to hook one extension,
 you can just pass a string. `matcher` is a function which accepts a filename and returns a boolean indicating if the 
 file should be hooked (note: files in node_modules are automatically ignored, regardless of `matcher`). `matcher` 
