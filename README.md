@@ -90,13 +90,13 @@ require.extensions['.js'] = function (mod, filename) {
     compile.call(mod, code, filename);
   }
   
-  old.apply(this, arguments);
+  old(mod, filename);
 }
 
 // Now you can just do this!:
 pirates.addHook(['.js'], function matcher(filename) {
-  // Here, you can inspect the filename to determine if it should be hooked or not. Just return a boolean. Files in 
-  // node_modules are automatically ignored.
+  // Here, you can inspect the filename to determine if it should be hooked or 
+  // not. Just return a boolean. Files in node_modules are automatically ignored.
   
   // TODO: Implement logic
   return true;
@@ -107,12 +107,10 @@ pirates.addHook(['.js'], function matcher(filename) {
 
 Then when you add pirates to your module, add this badge to your README.md:
 
-[![Beware: Pirates!](http://ariporad.link/pirates-badge)](https://github.com/ariporad/pirates 
-"Beware: Pirates!")
+[![Beware: Pirates!](http://ariporad.link/pirates-badge)](https://github.com/ariporad/pirates "Beware: Pirates!")
 
 ```markdown
-[![Beware: Pirates!](http://ariporad.link/pirates-badge)](https://github.com/ariporad/pirates 
-"Beware: Pirates!")
+[![Beware: Pirates!](http://ariporad.link/pirates-badge)](https://github.com/ariporad/pirates "Beware: Pirates!")
 ```
 
 ---
