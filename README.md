@@ -50,13 +50,53 @@ where discussion was finally moved.
 
 ## Installation
 
-TODO
+    npm install --save pirates
 
 ---
 
 ## Usage
 
-TODO
+Using pirates is really easy:
+```javascript
+// my-module/register.js
+var pirates = require('pirates');
+
+// Instead of messing with require like this:
+var old = require.extensions['.js'];
+require.extensions['.js'] = function (mod, filename) {
+  var compile = mod._compile;
+  
+  mod._compile = function (code, filename) {
+    code = myLib.compileFile(code, filename);
+    compile.call(mod, code, filename);
+  }
+  
+  old.apply(this, arguments);
+}
+
+// Now you can just do this!:
+pirates.addCompiler(['.js'], function matcher(filename) {
+  // Here, you can inspect the filename to determine if it should be hooked or not. Just return a boolean. Files in 
+  // node_modules are automatically ignored.
+  
+  // TODO: Implement logic
+  return true;
+}, function hook(code, filename) {
+  return code.replace('@@foo', 'console.log(\'foo\');');
+});
+```
+
+---
+
+## API
+
+### pirates.addCompiler([exts], [matcher], hook);
+Add a require hook. `exts` is optional and defaults to ['.js'], for convenience, if you only want to hook one extension,
+you can just pass a string. `matcher` is a function which accepts a filename and returns a boolean indicating if the 
+file should be hooked (note: files in node_modules are automatically ignored, regardless of `matcher`). `matcher` 
+defaults to always true. `hook` is the actual require hook. It accepts two arguments, the code to 
+transpile/instrument/whatever and the filename of the module. It must return the new code of the module.
+
 
 ---
 
