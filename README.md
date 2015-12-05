@@ -130,16 +130,11 @@ transpile/instrument/whatever and the filename of the module. It must return the
 
 ---
 
-## Contributing
+## Projects that use Pirates
 
-PRs are welcome!
-
-Please make sure to add tests for anything you add/fix. Run the tests (and lint your code,) with:
-
-    npm run test
-
-
-
+See the [wiki page](https://github.com/ariporad/pirates/wiki/Projects-using-Pirates). If you add Pirates to your project,
+(And you should! It works best if everyone uses it. Then we can have a happy world full of happy require hooks!), please
+add yourself to the wiki.
 
 ---
 
