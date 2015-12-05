@@ -7,7 +7,7 @@
 
 ---
 [//]: # "I'm on the fence about having this here, as we don't actually use pirates"
-[![Beware: Pirates!][pirates-link]][pirates-badge]
+[![Beware: Pirates!][pirates-badge]][pirates-link]
 [![Version][version-badge]][npm-link]
 [![Downloads][downloads-badge]][npm-link]
 [![Build Status][build-badge]][build-link]
