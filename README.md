@@ -6,26 +6,46 @@
 [//]: # "ProTip(tm): This is how you make a comment in markdown. Anything between the quotes is ignored."
 
 ---
-[![Version][version-badge]][version-link]
+[//]: # "I'm on the fence about having this here, as we don't actually use pirates"
+[![Beware: Pirates!][pirates-link][pirates-badge]
+[![Version][version-badge]][npm-link]
+[![Downloads][downloads-badge]][npm-link]
 [![Build Status][build-badge]][build-link]
-[![Coverage Status][coverage-badge]][coverage-link]
+[//]: # "[![Coverage Status][coverage-badge]][coverage-link]"
 [![Dependency Status][deps-badge]](deps-link)
 [![devDependency Status][devDeps-badge]][devDeps-link]
+[![Commitizen friendly][cz-badge]][cz-link]
+[![semantic-release][sr-badge]][sr-link]
+[![MIT License][license-badge]][license-link]
 
-[version-badge]: https://badge.fury.io/js/pirates.svg         "npm version"
-[version-link]:  http://badge.fury.io/js/pirates              "npm version"
+
+[version-badge]: 	https://img.shields.io/npm/v/pirates.svg   "npm version"
+[downloads-badge]: https://img.shields.io/npm/dm/pirates.svg "npm downloads"
+[npm-link]:  http://npm.im/pirates                           "npm"
+
+[license-badge]: https://img.shields.io/npm/l/express.svg    "MIT License"
+[license-link]:  http://ariporad.mit-license.org             "MIT License"
 
 [build-badge]: https://travis-ci.org/ariporad/pirates.svg                   "Travis CI Build Status"
 [build-link]:  https://travis-ci.org/ariporad/pirates                       "Travis CI Build Status"
 
-[deps-badge]: https://david-dm.org/ariporad/pirates.svg                     "Dependency Status"
+[deps-badge]: https://img.shields.io/david/ariporad/pirates.svg             "Dependency Status"
 [deps-link]:  https://david-dm.org/ariporad/pirates                         "Dependency Status"
 
-[devDeps-badge]: https://david-dm.org/ariporad/pirates/dev-status.svg       "devDependency Status"
+[devDeps-badge]: https://img.shields.io/david/dev/ariporad/pirates.svg      "devDependency Status"
 [devDeps-link]:  https://david-dm.org/ariporad/pirates#info=devDependencies "devDependency Status"
 
-[//]: # "This comes last, as it's really long"
+[pirates-badge]: http://ariporad.link/pirates-badge "Beware: Pirates!"
+[pirates-link]: https://github.com/ariporad/pirates "Beware: Pirates!"
 
+[cz-badge]: https://img.shields.io/badge/commitizen-friendly-brightgreen.svg "Commitizen friendly"
+[cz-link]: http://commitizen.github.io/cz-cli/                               "Commitizen friendly"
+
+[sr-badge]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
+[sr-link]: https://github.com/semantic-release/semantic-release
+
+[//]: # "This comes last, as it's really long"
+[//]: # "These are currently disabled"
 [coverage-badge]: https://coveralls.io/repos/ariporad/pirates/badge.svg?branch=master&service=github "Code Coverage"
 [coverage-link]: https://coveralls.io/github/ariporad/pirates?branch=master                          "Code Coverage"
 
@@ -84,6 +104,16 @@ pirates.addHook(['.js'], function matcher(filename) {
 }, function hook(code, filename) {
   return code.replace('@@foo', 'console.log(\'foo\');');
 });
+```
+
+Then when you add pirates to your module, add this badge to your README.md:
+
+[![Beware: Pirates!](http://ariporad.link/pirates-badge)](https://github.com/ariporad/pirates 
+"Beware: Pirates!")
+
+```markdown
+[![Beware: Pirates!](http://ariporad.link/pirates-badge)](https://github.com/ariporad/pirates 
+"Beware: Pirates!")
 ```
 
 ---
