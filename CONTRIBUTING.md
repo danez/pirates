@@ -2,8 +2,7 @@
 ARRRRR, don't be a filthy landlubber, contribute to pirates!
 
 ## Filing Issues
-ARRRRR, thanks for filing an issue matey. Make sure to include the version, and the output when you set 
-`PIRATES_LOG_LEVEL` (env var) to `silly`.
+ARRRRR, thanks for filing an issue matey. Make sure to include the version!
 
 ## Writing Code / Submitting PRs
 ARRRRRRRR, thanks so much for contributing to pirates, matey. Here's what you need to know:
