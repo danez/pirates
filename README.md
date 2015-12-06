@@ -94,7 +94,7 @@ require.extensions['.js'] = function (mod, filename) {
 }
 
 // Now you can just do this!:
-pirates.addHook(['.js'], function matcher(filename) {
+var revert = pirates.addHook(['.js'], function matcher(filename) {
   // Here, you can inspect the filename to determine if it should be hooked or 
   // not. Just return a boolean. Files in node_modules are automatically ignored.
   
@@ -103,6 +103,9 @@ pirates.addHook(['.js'], function matcher(filename) {
 }, function hook(code, filename) {
   return code.replace('@@foo', 'console.log(\'foo\');');
 });
+
+// And later, if you want to un-hook require, you can just do:
+revert();
 ```
 
 Then when you add pirates to your module, add this badge to your README.md:
@@ -122,7 +125,8 @@ Add a require hook. `exts` is optional and defaults to ['.js'], for convenience,
 you can just pass a string. `matcher` is a function which accepts a filename and returns a boolean indicating if the 
 file should be hooked (note: files in node_modules are automatically ignored, regardless of `matcher`). `matcher` 
 defaults to always true. `hook` is the actual require hook. It accepts two arguments, the code to 
-transpile/instrument/whatever and the filename of the module. It must return the new code of the module.
+transpile/instrument/whatever and the filename of the module. It must return the new code of the module. Returns a 
+function which un-hooks require.
 
 
 ---
