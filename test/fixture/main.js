@@ -4,6 +4,8 @@ require('./compilers/compilerA');
 require('./compilers/compilerB');
 require('./compilers/compilerC');
 require('./compilers/compilerD');
+require('./compilers/revert');
 
 require('./foo');
+require('./bar');
 

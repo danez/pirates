@@ -3,3 +3,8 @@
 console.log('foo');
 @@macroA;
 
+if (!injectedVar) {
+  console.log('Bad: No injectedVar');
+} else {
+  console.log('injectedVar: OK');
+}

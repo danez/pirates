@@ -24,6 +24,9 @@ it('should work', function itTheyShouldWork(done) {
       'in macroC',
       'in macroB',
       'in macroA',
+      'injectedVar: OK',
+      'bar',
+      'No injectedVar: OK',
     ].join('\n'));
     done();
   });
