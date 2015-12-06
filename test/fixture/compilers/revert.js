@@ -2,7 +2,9 @@
 /* @pirates: ignore */
 var pirates = require('../../../');
 
-var revert = pirates.addHook(compiler);
+var revert = pirates.addHook(compiler, {
+  ext: '.js',
+});
 
 function compiler(code, filename) {
   revert();
