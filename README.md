@@ -93,16 +93,18 @@ require.extensions['.js'] = function (mod, filename) {
   old(mod, filename);
 }
 
-// Now you can just do this!:
-var revert = pirates.addHook(['.js'], function matcher(filename) {
+function matcher(filename) {
   // Here, you can inspect the filename to determine if it should be hooked or 
-  // not. Just return a boolean. Files in node_modules are automatically ignored.
+  // not. Just return a truthy/falsey. Files in node_modules are automatically ignored, unless otherwise specified (see below).
   
   // TODO: Implement logic
   return true;
-}, function hook(code, filename) {
+}
+
+// Now you can just do this!:
+var revert = pirates.addHook(function hook(code, filename) {
   return code.replace('@@foo', 'console.log(\'foo\');');
-});
+}, { exts: ['.js'], matcher: matcher });
 
 // And later, if you want to un-hook require, you can just do:
 revert();
@@ -120,13 +122,13 @@ Then when you add pirates to your module, add this badge to your README.md:
 
 ## API
 
-### pirates.addHook([exts], [matcher], hook);
-Add a require hook. `exts` is optional and defaults to ['.js'], for convenience, if you only want to hook one extension,
-you can just pass a string. `matcher` is a function which accepts a filename and returns a boolean indicating if the 
-file should be hooked (note: files in node_modules are automatically ignored, regardless of `matcher`). `matcher` 
-defaults to always true. `hook` is the actual require hook. It accepts two arguments, the code to 
-transpile/instrument/whatever and the filename of the module. It must return the new code of the module. Returns a 
-function which un-hooks require.
+### pirates.addHook(hook, [opts={ [matcher: true], [exts: ['js']], [ignoreNodeModules: true] }]);
+Add a require hook. `hook` must be a function that takes `(code, filename)`, and returns the modified code. `opts` is
+an optional options object. Available options are: `matcher`, which is a function that accepts a filename, and 
+returns a truthy value if the file should be hooked (defaults to a function that always returns true), falsey if 
+otherwise; `exts`, which is an array of extensions to hook, they should begin with `.` (defaults to `['.js']`); 
+`ignoreNodeModules`, if true, any file in a `node_modules` folder wont be hooked (the matcher also wont be called), 
+if false, then the matcher will be called for any files in `node_modules` (defaults to true).
 
 
 ---
