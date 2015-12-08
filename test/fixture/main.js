@@ -1,10 +1,10 @@
 /* (c) 2015 Ari Porad (@ariporad) <http://ariporad.com>. License: ariporad.mit-license.org */
 
-require('./compilers/compilerA');
-require('./compilers/compilerB');
-require('./compilers/compilerC');
-require('./compilers/compilerD');
-require('./compilers/revert');
+require('hookA');
+require('hookB');
+require('hookC');
+require('hookD');
+require('revert');
 
 require('./foo');
 require('./bar');

@@ -20,10 +20,10 @@ it('should work', function itTheyShouldWork(done) {
   child.stdout.on('end', function onEnd() {
     expect(data.trim()).to.equal([
       'foo',
-      'in macroD',
-      'in macroC',
-      'in macroB',
       'in macroA',
+      'in macroB',
+      'in macroC',
+      'in macroD',
       'injectedVar: OK',
       'bar',
       'No injectedVar: OK',
