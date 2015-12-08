@@ -1,8 +1,5 @@
 {
   "extends": "airbnb/base",
-  "env": {
-    "mocha": true
-  },
   "globals": {
     "expect": false,
     "assert": false
