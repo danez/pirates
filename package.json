@@ -41,5 +41,8 @@
     "commitizen": {
       "path": "node_modules/cz-conventional-changelog/"
     }
+  },
+  "dependencies": {
+    "node-modules-regexp": "^1.0.0"
   }
 }
