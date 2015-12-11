@@ -6,10 +6,10 @@ var mock = require('mock-fs');
 
 var availFilenames = ['foo', 'bar', 'baz', 'qux'];
 
-function fileToMockedFile(filename) {
+function fileToMockedFile(filename, relative) {
   filename = filename + '.js';
   filename = path.resolve(__dirname, 'fixture', filename);
-  filename = path.relative(process.cwd(), filename);
+  if (relative !== false) filename = path.relative(process.cwd(), filename);
   return filename;
 }
 
@@ -25,7 +25,7 @@ function mockFiles(files) {
   Object.keys(files).forEach(function processFilename(filename) {
     var content = files[filename];
     if (content.indexOf('exports') === -1) content = 'module.exports = ' + content;
-    mocks[fileToMockedFile(filename)] = content;
+    mocks[fileToMockedFile(filename, true)] = content;
   });
   return mock(mocks);
 }
@@ -48,12 +48,18 @@ function assertModule(t, _filename, expected) {
  */
 function doTest(t, files, hooks, expectations) {
   delete require.cache[path.resolve(__dirname, '..', 'lib', 'index.js')];
+  availFilenames.forEach(function clearCache(filename) {
+    delete require.cache[fileToMockedFile(filename, false)];
+  });
+
   var pirates = require('..');
 
   mockFiles(files);
 
+  var reverts = [mock.restore.bind(mock)];
+
   hooks.forEach(function registerHook(args) {
-    pirates.addHook.apply(pirates, args);
+    reverts.push(pirates.addHook.apply(pirates, args));
   });
 
   if (Array.isArray(expectations)) {
@@ -68,14 +74,16 @@ function doTest(t, files, hooks, expectations) {
     assertModule(t, filename, expectations[filename]);
   });
 
-  mock.restore();
+  reverts.forEach(function doRevert(revert) {
+    revert();
+  });
 }
 
-function makeTest(files, hooks, expectations) {
+function makeTest(files, hooks, expectations) { // eslint-disable-line no-unused-vars
   var args = Array.prototype.slice.apply(arguments);
-  return function (t) {
+  return function callDoTest(t) {
     return doTest.apply(this, [t].concat(args));
-  }
+  };
 }
 
-module.exports = { mockFiles, assertModule, doTest, makeTests };
+module.exports = { mockFiles: mockFiles, assertModule: assertModule, doTest: doTest, makeTest: makeTest };
