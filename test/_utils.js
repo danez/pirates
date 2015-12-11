@@ -37,6 +37,18 @@ function assertModule(t, _filename, expected) {
   return t.same(require('./fixture/' + _filename + '.js'), expected);
 }
 
+function makeNonPiratesHook(macro, value) {
+  var oldLoader = require.extensions['.js'];
+  require.extensions['.js'] = function loader(mod, filename) {
+    var _compile = mod._compile;
+    mod._compile = function newCompile(code) {
+      if (path.resolve(filename, '..') === __dirname) return _compile.call(mod, code, filename);
+      return _compile.call(mod, code.replace(macro, value), filename);
+    };
+    oldLoader(mod, filename);
+  };
+}
+
 /**
  * This basically abstracts away all the test boilerplate
  * @param t - The test object AVA provides
@@ -54,25 +66,34 @@ function doTest(t, files, hooks, expectations) {
 
   var pirates = require('..');
 
-  mockFiles(files);
-
   var reverts = [mock.restore.bind(mock)];
 
-  hooks.forEach(function registerHook(args) {
-    reverts.push(pirates.addHook.apply(pirates, args));
-  });
+  if (typeof files === 'function') reverts = reverts.concat(files());
+  else mockFiles(files);
 
-  if (Array.isArray(expectations)) {
-    var filenames = availFilenames.slice();
-    expectations = expectations.reduce(function assignFilename(newExpectations, expectation) {
-      // FIXME: this should really be linked better with the array processing above.
-      newExpectations[filenames.shift()] = expectation;
-      return newExpectations;
-    }, {});
+  if (typeof hooks === 'function') {
+    reverts = reverts.concat(hooks());
+  } else {
+    hooks.forEach(function registerHook(args) {
+      reverts.push(pirates.addHook.apply(pirates, args));
+    });
   }
-  Object.keys(expectations).forEach(function assertExpectation(filename) {
-    assertModule(t, filename, expectations[filename]);
-  });
+
+  if (typeof expectations === 'function') {
+    reverts = reverts.concat(expectations()); // This can return reverts not because it should, but for consistency.
+  } else {
+    if (Array.isArray(expectations)) {
+      var filenames = availFilenames.slice();
+      expectations = expectations.reduce(function assignFilename(newExpectations, expectation) {
+        // FIXME: this should really be linked better with the array processing above.
+        newExpectations[filenames.shift()] = expectation;
+        return newExpectations;
+      }, {});
+    }
+    Object.keys(expectations).forEach(function assertExpectation(filename) {
+      assertModule(t, filename, expectations[filename]);
+    });
+  }
 
   reverts.forEach(function doRevert(revert) {
     revert();
@@ -86,4 +107,10 @@ function makeTest(files, hooks, expectations) { // eslint-disable-line no-unused
   };
 }
 
-module.exports = { mockFiles: mockFiles, assertModule: assertModule, doTest: doTest, makeTest: makeTest };
+module.exports = {
+  mockFiles: mockFiles,
+  assertModule: assertModule,
+  doTest: doTest,
+  makeTest: makeTest,
+  makeNonPiratesHook: makeNonPiratesHook,
+};
