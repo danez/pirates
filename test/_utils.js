@@ -24,7 +24,6 @@ function mockFiles(files) {
   var mocks = {};
   Object.keys(files).forEach(function processFilename(filename) {
     var content = files[filename];
-    if (content.indexOf('exports') === -1) content = 'module.exports = ' + content;
     mocks[fileToMockedFile(filename, true)] = content;
   });
   return mock(mocks);
