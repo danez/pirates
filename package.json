@@ -3,10 +3,9 @@
   "description": "Properly hijack require",
   "main": "lib/index.js",
   "scripts": {
-    "test": "npm run lint && mocha",
-    "test:cov": "npm run lint && istanbul cover _mocha",
+    "test": "npm run lint &&  ava",
+    "test:cov": "npm run lint && echo \"Code Coverage Currently Doesn't Work, Sorry!\"",
     "coveralls:upload": "cat ./coverage/lcov.info | coveralls",
-    "watch": "mocha -w -R min",
     "lint": "eslint .",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
@@ -20,15 +19,15 @@
     "url": "http://ariporad.com"
   },
   "devDependencies": {
+    "ava": "^0.7.0",
     "babel-eslint": "^4.1.5",
-    "chai": "^3.4.1",
-    "chai-as-promised": "^5.1.0",
     "coveralls": "^2.11.4",
     "cz-conventional-changelog": "^1.1.5",
     "eslint": "^1.10.3",
     "eslint-config-airbnb": "^2.0.0",
     "istanbul": "^1.0.0-alpha.2",
-    "mocha": "^2.3.4",
+    "mock-fs": "^3.5.0",
+    "mock-require": "^1.2.1",
     "rewire": "^2.5.1",
     "semantic-release": "^4.3.5"
   },

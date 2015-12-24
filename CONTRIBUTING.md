@@ -22,25 +22,4 @@ commits that you make follow them.
 [Commitizen]: https://github.com/commitizen/cz-cli "Commitizen"
 
 ## Tests
-```
-Pirates
-  +-- lib/ - The actual code
-    +-- index.js - Pirates 
-  +-- test/
-    +-- .eslintrc - Some test-specific eslint config
-    +-- \_setup.js - Some test setup. Puts chai in a global, etc.
-    +-- mocha.opts - Mocha config
-    +-- test.js - The test!
-    +-- fixture
-      +-- main.js - Loads the compilers in compilers/, loads foo.js
-      +-- foo.js - Contains macros to be parsed by the compilers
-      +-- compilers/ - Some dummy require hooks that do string replacement on some macros
-        +-- compilerA.js - Uses pirates. Replaces `@@macroA` with a log and a call to `@@macroB`
-        +-- compilerB.js - Doesn't use pirates. Replaces `@@macroB` with a log and a call to `@@macroC`
-        +-- compilerC.js - Doesn't use pirates. Replaces `@@macroC` with a log and a call to `@@macroD`
-        +-- compilerD.js - Uses pirates. Replaces `@@macroD` with a log
-                                
-```
-
-test.js simply forks a node process to run main.js, and compares the output with the expected result. It is 
-(currently) the only test.
+See [`test/README.md`](test/README.md) for lots of good info on tests.

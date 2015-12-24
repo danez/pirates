@@ -1,2 +1,3 @@
 test/fixture/**
+test/old/fixture/**
 coverage
