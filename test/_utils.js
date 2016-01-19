@@ -4,10 +4,9 @@
 var path = require('path');
 var mock = require('mock-fs');
 
-var availFilenames = ['foo', 'bar', 'baz', 'qux'];
+var availFilenames = ['foo.js', 'bar.js', 'baz.js', 'qux.js'];
 
 function fileToMockedFile(filename, relative) {
-  filename = filename + '.js';
   filename = path.resolve(__dirname, 'fixture', filename);
   if (relative !== false) filename = path.relative(process.cwd(), filename);
   return filename;
@@ -30,10 +29,10 @@ function mockFiles(files) {
 }
 
 function assertModule(t, _filename, expected) {
-  var filename = fileToMockedFile(_filename);
-  // The path nonsense is to make it an absolute paths
+  var filename = fileToMockedFile(_filename, true);
+  // The path nonsense is to make it an absolute path
   delete require.cache[path.resolve(process.cwd(), filename)];
-  return t.same(require('./fixture/' + _filename + '.js'), expected);
+  return t.same(require('./' + filename), expected);
 }
 
 function makeNonPiratesHook(macro, value) {
