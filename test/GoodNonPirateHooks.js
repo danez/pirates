@@ -1,29 +1,27 @@
 /* (c) 2015 Ari Porad (@ariporad) <http://ariporad.com>. License: ariporad.mit-license.org */
 import test from 'ava';
-import { addHook } from '..';
-import { makeTest, makeNonPiratesHook } from './_utils';
+import rewire from 'rewire';
+import { makeNonPiratesHook, assertModule } from './_utils';
 
-test('non-pirates hooks', makeTest(
-  {
-    // This weirdness is to test that the rest of the chain still happens when a matcher is used.
-    foo: 'module.exports = "in foo @@a @@c @@d"',
-    bar: 'module.exports = "in bar @@a @@c @@d"',
-  },
-  () => {
-    const reverts = [];
+const call = f => typeof f === 'function' ? f() : void 0;
 
-    reverts.push(addHook(code => code.replace('@@a', 'foo @@b')));
-    makeNonPiratesHook('@@b', 'bar');
-    reverts.push(addHook(code => code.replace('@@c', 'baz'), {
+test.beforeEach(t => {
+  t.context = rewire('../');
+});
+
+test('non-pirates hooks', t => {
+  const reverts = [
+    t.context.addHook(code => code.replace('@@a', 'a! @@b')),
+    makeNonPiratesHook('@@b', 'b!'),
+    t.context.addHook(code => code.replace('@@c', 'c!'), {
       matcher: filename => filename.indexOf('foo') === -1,
-    }));
-    makeNonPiratesHook('@@d', 'qux @@e');
-    reverts.push(addHook(code => code.replace('@@e', 'quux')));
+    }),
+    makeNonPiratesHook('@@d', 'd! @@e'),
+    t.context.addHook(code => code.replace('@@e', 'e!')),
+  ];
 
-    return reverts;
-  },
-  {
-    foo: 'in foo foo bar @@c qux quux',
-    bar: 'in bar foo bar baz qux quux',
-  }
-));
+  assertModule(t, 'chain-foo.js', 'in chain-foo a! b! @@c d! e!');
+  assertModule(t, 'chain-bar.js', 'in chain-bar a! b! c! d! e!');
+
+  reverts.map(call);
+});
