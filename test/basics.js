@@ -34,3 +34,25 @@ test('matchers', t => {
 
   reverts.forEach(call);
 });
+
+test('matcher is called only once per file', t => {
+  let timesMatcherCalled = 0;
+  require.extensions['.foojs'] = require.extensions['.js'];
+  const reverts = [
+    t.context.addHook(code => code, {
+      matcher: () => {
+        timesMatcherCalled++;
+        return true;
+      },
+      exts: ['.js', '.foojs'],
+    }),
+    () => delete require.extensions['.foojs'],
+  ];
+
+  rewire('./fixture/basics-foo'); // Rewire doesn't use the require cache.
+  rewire('./fixture/basics-foo.foojs'); // Rewire doesn't use the require cache.
+
+  t.is(timesMatcherCalled, 2, 'matcher is only called once per file');
+
+  reverts.forEach(call);
+});
