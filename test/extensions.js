@@ -1,21 +1,48 @@
 /* (c) 2016 Ari Porad (@ariporad) <http://ariporad.com>. License: ariporad.mit-license.org */
 import test from 'ava';
-import { makeTest } from './_utils';
+import rewire from 'rewire';
+import { assertModule } from './_utils';
 
-test('exts', makeTest(
-  {
-    'foo.js': `
-     // Cheap and dirty way to load .foo files as .js files.
-     require.extensions[".foo"] = require.extensions[".js"];
+const call = f => f();
 
-     // no-pirates.foo is valid js, but exports the macro.
-     module.exports = "@@a, " + require("./no-pirates.foo");`,
-    'no-pirates.foo': `module.exports = '@@a';`,
-  },
-  [
-    [code => code.replace('@@a', 'a!'), { exts: ['.js'] }],
-  ],
-  [
-    'a!, @@a',
-  ]
-));
+test.beforeEach(t => {
+  t.context = rewire('../');
+});
+
+test('exts', t => {
+  const reverts = [
+    t.context.addHook(code => code.replace('@@a', 'a!')),
+  ];
+
+  assertModule(t, 'extensions-main.js', 'a! @@a');
+
+  reverts.map(call);
+});
+
+// a: @@a @@d => a! @@b d! e!
+// b: @@a @@d => a! b! c! d! e!
+
+// @@a: a! @@b
+// @@b: b! @@c
+// @@c: c!
+// @@d: d! @@e
+// @@e: e!
+
+test('chain', t => {
+  // Cheap and dirty way to load .foo files as .js files.
+  require.extensions['.foojs'] = require.extensions['.js'];
+
+  const reverts = [
+    t.context.addHook(code => code.replace('@@a', 'a! @@b'), { exts: ['.js', '.foojs'] }),
+    t.context.addHook(code => code.replace('@@b', 'b! @@c'), { exts: ['.foojs'] }),
+    t.context.addHook(code => code.replace('@@c', 'c!'), { exts: ['.js', '.foojs'] }),
+    t.context.addHook(code => code.replace('@@d', 'd! @@e'), { exts: ['.js', '.foojs'] }),
+    t.context.addHook(code => code.replace('@@e', 'e!'), { exts: ['.js', '.foojs'] }),
+    () => delete require.extensions['.foojs'],
+  ];
+
+  assertModule(t, 'extensions-chain.js', 'a! @@b d! e!');
+  assertModule(t, 'extensions-chain.foojs', 'a! b! c! d! e!');
+
+  reverts.map(call);
+});
