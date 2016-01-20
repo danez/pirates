@@ -42,5 +42,8 @@
   },
   "dependencies": {
     "node-modules-regexp": "^1.0.0"
+  },
+  "optionalDependencies": {
+    "debug": "^2.2.0"
   }
 }
