@@ -26,7 +26,6 @@
     "eslint": "^1.10.3",
     "eslint-config-airbnb": "^2.0.0",
     "istanbul": "^1.0.0-alpha.2",
-    "mock-fs": "^3.5.0",
     "mock-require": "^1.2.1",
     "rewire": "^2.5.1",
     "semantic-release": "^4.3.5"

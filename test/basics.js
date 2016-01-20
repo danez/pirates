@@ -1,33 +1,36 @@
 /* (c) 2015 Ari Porad (@ariporad) <http://ariporad.com>. License: ariporad.mit-license.org */
 import test from 'ava';
-import { makeTest } from './_utils';
+import rewire from 'rewire';
+import { assertModule } from './_utils';
 
-test('When all the hooks use pirates', makeTest(
-  [
-    'module.exports = "in 1" @@a @@b',
-    'module.exports = "in 2" @@a @@b',
-  ],
-  [
-    [code => code.replace('@@a', `+ ' a value'`)],
-    [code => code.replace('@@b', `+ ' b value'`)],
-  ],
-  [
-    `in 1 a value b value`,
-    `in 2 a value b value`,
-  ]
-));
+const call = f => f();
 
-test('matchers', makeTest(
-  {
-    foo: 'module.exports = "in foo @@a @@b"',
-    bar: 'module.exports = "in bar @@a @@b"',
-  },
-  [
-    [code => code.replace('@@a', 'foo'), { matcher: filename => filename.indexOf('foo') === -1 }],
-    [code => code.replace('@@b', 'bar')],
-  ],
-  {
-    foo: 'in foo @@a bar',
-    bar: 'in bar foo bar',
-  }
-));
+test.beforeEach(t => {
+  t.context = rewire('../');
+});
+
+test('basics', t => {
+  const reverts = [
+    t.context.addHook(code => code.replace('@@a', '\<a\>')),
+    t.context.addHook(code => code.replace('@@b', '\<b\>')),
+  ];
+
+  assertModule(t, 'basics-foo.js', 'in basics-foo \<a\> \<b\>');
+  assertModule(t, 'basics-bar.js', 'in basics-bar \<a\> \<b\>');
+
+  reverts.forEach(call);
+});
+
+test('matchers', t => {
+  const reverts = [
+    t.context.addHook(code => code.replace('@@a', '\<a\>'), {
+      matcher: filename => filename.indexOf('foo') === -1,
+    }),
+    t.context.addHook(code => code.replace('@@b', '\<b\>')),
+  ];
+
+  assertModule(t, 'basics-foo.js', 'in basics-foo @@a \<b\>');
+  assertModule(t, 'basics-bar.js', 'in basics-bar \<a\> \<b\>');
+
+  reverts.forEach(call);
+});
