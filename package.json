@@ -19,12 +19,13 @@
     "url": "http://ariporad.com"
   },
   "devDependencies": {
-    "ava": "^0.7.0",
-    "babel-eslint": "^4.1.5",
+    "ava": "^0.16.0",
+    "babel-eslint": "^6.0.0",
     "coveralls": "^2.11.4",
     "cz-conventional-changelog": "^1.1.5",
-    "eslint": "^1.10.3",
-    "eslint-config-airbnb": "^2.0.0",
+    "eslint": "^3.0.0",
+    "eslint-config-airbnb-base": "^5.0.3",
+    "eslint-plugin-import": "^1.13.0",
     "istanbul": "^1.0.0-alpha.2",
     "mock-require": "^1.2.1",
     "rewire": "^2.5.1",
@@ -42,5 +43,12 @@
   },
   "dependencies": {
     "node-modules-regexp": "^1.0.0"
+  },
+  "ava": {
+    "files": [
+      "test/*.js",
+      "!**/fixture/*.js",
+      "!test/_*.js"
+    ]
   }
 }

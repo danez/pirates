@@ -7,7 +7,7 @@ function assertModule(t, _filename, expected) {
   var filename = path.join('fixture', _filename);
   // The path nonsense is to make it an absolute path
   delete require.cache[path.resolve(process.cwd(), filename)];
-  return t.same(require('./' + filename), expected);
+  return t.deepEqual(require('./' + filename), expected);
 }
 
 function makeNonPiratesHook(macro, value) {

@@ -1,5 +1,5 @@
 {
-  "extends": "airbnb/legacy",
+  "extends": "airbnb-base",
   "rules": {
     "one-var": [2, {
       "uninitialized": "always", // Exactly one declaration for uninitialized variables per function (var) or block (let or const)
