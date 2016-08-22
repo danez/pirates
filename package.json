@@ -1,5 +1,6 @@
 {
   "name": "pirates",
+  "version": "99.0.0",
   "description": "Properly hijack require",
   "main": "lib/index.js",
   "scripts": {
