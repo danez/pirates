@@ -1,5 +1,6 @@
 /* (c) 2015 Ari Porad (@ariporad) <http://ariporad.com>. License: ariporad.mit-license.org */
 import test from 'ava';
+import Module from 'module';
 import rewire from 'rewire';
 import { assertModule } from './_utils';
 
@@ -19,6 +20,18 @@ test('basics', t => {
   assertModule(t, 'basics-bar.js', 'in basics-bar \<a\> \<b\>');
 
   reverts.forEach(call);
+});
+
+test('correctly reverts if no other hook', t => {
+  const originalJSLoader = Module._extensions['.js'];
+  const reverts = [
+    t.context.addHook(code => code),
+    t.context.addHook(code => code),
+  ];
+
+  reverts.reverse().forEach(call);
+
+  t.is(originalJSLoader, Module._extensions['.js']);
 });
 
 test('matchers', t => {
