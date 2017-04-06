@@ -2,7 +2,7 @@
 import test from 'ava';
 import Module from 'module';
 import rewire from 'rewire';
-import { assertModule } from './_utils';
+import { assertModule } from './helpers/utils';
 
 const call = f => f();
 

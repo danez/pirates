@@ -1,26 +1,15 @@
 sudo: false
 language: node_js
 node_js:
-  - "5.1"
-  - "5"
-  - "4.2"
-  - "4.1"
-  - "4.0"
-cache:
-  directories:
-    - node_modules
-notifications:
-  email: false
-before_install:
-  - npm i -g npm@3
-before_script:
-  - npm prune
+  - "4"
+  - "6"
+  - "7"
 script:
-  - npm run test
+  - yarn test
 after_script:
 #  - npm run coveralls:upload
 after_success:
   - 'curl -Lo travis_after_all.py https://git.io/travis_after_all'
   - python travis_after_all.py
   - 'export $(cat .to_export_back) &> /dev/null'
-  - npm run semantic-release
+  - yarn run semantic-release

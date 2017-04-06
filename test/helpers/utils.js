@@ -1,13 +1,13 @@
 /* (c) 2015 Ari Porad (@ariporad) <http://ariporad.com>. License: ariporad.mit-license.org */
 /* eslint no-var:0, prefer-const: 0, vars-on-top: 0, object-shorthand:0 */
-// This is not ES6, AVA doesn't transpile it.
-var path = require('path');
+import decache from 'decache';
+import path from 'path';
 
-function assertModule(t, _filename, expected) {
-  var filename = path.join('fixture', _filename);
-  // The path nonsense is to make it an absolute path
-  delete require.cache[path.resolve(process.cwd(), filename)];
-  return t.same(require('./' + filename), expected);
+function assertModule(t, filename, expected) {
+  var absFilename = path.join(__dirname, '../fixture', filename);
+  decache(absFilename);
+
+  return t.is(require(absFilename), expected);
 }
 
 function makeNonPiratesHook(macro, value) {

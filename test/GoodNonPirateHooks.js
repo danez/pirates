@@ -1,7 +1,7 @@
 /* (c) 2015 Ari Porad (@ariporad) <http://ariporad.com>. License: ariporad.mit-license.org */
 import test from 'ava';
 import rewire from 'rewire';
-import { makeNonPiratesHook, assertModule } from './_utils';
+import { makeNonPiratesHook, assertModule } from './helpers/utils';
 
 const call = f => typeof f === 'function' ? f() : void 0;
 
