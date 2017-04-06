@@ -22,7 +22,7 @@ test('basics', (t) => {
   reverts.forEach(call);
 });
 
-test('correctly reverts if no other hook', (t) => {
+test.skip('correctly reverts if no other hook', (t) => {
   const originalJSLoader = Module._extensions['.js'];
   const reverts = [
     t.context.addHook(code => code),

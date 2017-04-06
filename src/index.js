@@ -96,5 +96,5 @@ function addHook(hook, opts = {}) {
 }
 
 module.exports = {
-  addHook, // TODO: Maybe just export addHook?
+  addHook,
 };
