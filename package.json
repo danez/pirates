@@ -11,6 +11,9 @@
     "prepublish": "yarn run build",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
+  "files":[
+    "lib"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/ariporad/pirates.git"
