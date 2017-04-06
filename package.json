@@ -24,7 +24,7 @@
     "coveralls": "^2.11.4",
     "cz-conventional-changelog": "^1.1.5",
     "eslint": "^1.10.3",
-    "eslint-config-airbnb": "^2.0.0",
+    "eslint-config-airbnb": "^3.0.1",
     "istanbul": "^1.0.0-alpha.2",
     "mock-require": "^1.2.1",
     "rewire": "^2.5.1",
