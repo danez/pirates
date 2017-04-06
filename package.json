@@ -3,15 +3,20 @@
   "description": "Properly hijack require",
   "main": "lib/index.js",
   "scripts": {
-    "test": "npm run lint && ava",
-    "test:cov": "npm run lint && echo \"Code Coverage Currently Doesn't Work, Sorry!\"",
+    "build": "babel src -d lib",
+    "test": "yarn run lint && yarn run build && ava",
+    "test:cov": "yarn run lint && echo \"Code Coverage Currently Doesn't Work, Sorry!\"",
     "coveralls:upload": "cat ./coverage/lcov.info | coveralls",
     "lint": "eslint .",
+    "prepublish": "yarn run build",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/ariporad/pirates.git"
+  },
+  "engines": {
+    "node": ">= 4"
   },
   "author": {
     "name": "Ari Porad",
@@ -23,12 +28,15 @@
   },
   "devDependencies": {
     "ava": "^0.19.0",
-    "babel-eslint": "^4.1.5",
+    "babel-cli": "^6.24.0",
+    "babel-eslint": "^7.2.1",
+    "babel-preset-env": "^1.3.2",
     "coveralls": "^2.11.4",
     "cz-conventional-changelog": "^2.0.0",
     "decache": "^4.1.0",
-    "eslint": "^1.10.3",
-    "eslint-config-airbnb": "^2.0.0",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.1.3",
+    "eslint-plugin-import": "^2.2.0",
     "istanbul": "^1.0.0-alpha.2",
     "mock-require": "^1.2.1",
     "rewire": "^2.5.1",
