@@ -1,12 +1,11 @@
 {
-  "extends": "airbnb/legacy",
+  "extends": "airbnb-base",
+  "parser": "babel-eslint",
   "rules": {
-    "one-var": [2, {
-      "uninitialized": "always", // Exactly one declaration for uninitialized variables per function (var) or block (let or const)
-      "initialized": "never" // Exactly one declarator per initialized variable declaration per function (var) or block (let or const)
-    }],
-    "no-console": 0,
-    "spaced-comment": 0,
-    "no-param-reassign": 0
+    "no-multi-assign": "off",
+    "no-param-reassign": "off",
+    "no-plusplus": "off",
+    "no-underscore-dangle": "off",
+    "max-len": "off"
   }
 }

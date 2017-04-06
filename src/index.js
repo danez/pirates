@@ -1,9 +1,9 @@
 /* (c) 2015 Ari Porad (@ariporad) <http://ariporad.com>. License: ariporad.mit-license.org */
-var Module = require('module');
-var path = require('path');
-var nodeModulesRegex = require('node-modules-regexp');
+import Module from 'module';
+import path from 'path';
+import nodeModulesRegex from 'node-modules-regexp';
 
-var HOOK_RETURNED_NOTHING_ERROR_MESSAGE = '[Pirates] A hook returned a non-string, or nothing at all! This is a' +
+const HOOK_RETURNED_NOTHING_ERROR_MESSAGE = '[Pirates] A hook returned a non-string, or nothing at all! This is a' +
                                           ' violation of intergalactic law!\n' +
                                           '--------------------\n' +
                                           'If you have no idea what this means or what Pirates is, let me explain: ' +
@@ -15,9 +15,12 @@ var HOOK_RETURNED_NOTHING_ERROR_MESSAGE = '[Pirates] A hook returned a non-strin
 function shouldCompile(filename, exts, matcher, ignoreNodeModules) {
   if (typeof filename !== 'string') return false;
   if (exts.indexOf(path.extname(filename)) === -1) return false;
-  filename = path.resolve(filename);
-  if (ignoreNodeModules && nodeModulesRegex.test(filename)) return false;
-  if (matcher && typeof matcher === 'function') return !!matcher(filename);
+
+  const resolvedFilename = path.resolve(filename);
+
+  if (ignoreNodeModules && nodeModulesRegex.test(resolvedFilename)) return false;
+  if (matcher && typeof matcher === 'function') return !!matcher(resolvedFilename);
+
   return true;
 }
 
@@ -32,42 +35,40 @@ function shouldCompile(filename, exts, matcher, ignoreNodeModules) {
  * @param {Boolean} [opts.ignoreNodeModules=true] - Auto-ignore node_modules. Independent of any matcher.
  * @returns {Function} revert - Reverts the hooks.
  */
-function addHook(hook, opts) {
-  var reverted = false;
-  var loaders = [];
-  var oldLoaders = [];
-  var matcher, exts, ignoreNodeModules;
+function addHook(hook, opts = {}) {
+  let reverted = false;
+  const loaders = [];
+  const oldLoaders = [];
+  let exts;
 
   // We need to do this to fix #15. Basically, if you use a non-standard extension (ie. .jsx), then
   // We modify the .js loader, then use the modified .js loader for as the base for .jsx.
   // This prevents that.
-  var originalJSLoader = Module._extensions['.js'];
+  const originalJSLoader = Module._extensions['.js'];
 
-  opts = opts || {};
-  matcher = opts.matcher || null;
-  ignoreNodeModules = opts.ignoreNodeModules !== false;
+  const matcher = opts.matcher || null;
+  const ignoreNodeModules = opts.ignoreNodeModules !== false;
   exts = opts.extensions || opts.exts || opts.extension || opts.ext || ['.js'];
   if (!Array.isArray(exts)) exts = [exts];
 
-  exts.forEach(function registerExtension(ext) {
-    var oldLoader;
-    if (typeof ext !== 'string') throw new TypeError('Invalid Extension: ' + ext);
-    oldLoaders[ext] = oldLoader = Module._extensions[ext] || originalJSLoader;
+  exts.forEach((ext) => {
+    if (typeof ext !== 'string') throw new TypeError(`Invalid Extension: ${ext}`);
+    const oldLoader = Module._extensions[ext] || originalJSLoader;
+    oldLoaders[ext] = oldLoader;
 
     loaders[ext] = Module._extensions[ext] = function newLoader(mod, filename) {
-      var compile;
+      let compile;
       if (!reverted) {
         if (shouldCompile(filename, exts, matcher, ignoreNodeModules)) {
           compile = mod._compile;
-          mod._compile = function _compile(code /*, filename*/) {
-            var newCode;
+          mod._compile = function _compile(code /* , filename*/) {
             // reset the compile immediately as otherwise we end up having the
             // compile function being changed even though this loader might be reverted
             // Not reverting it here leads to long useless compile chains when doing
             // addHook -> revert -> addHook -> revert -> ...
             // The compile function is also anyway created new when the loader is called a second time.
             mod._compile = compile;
-            newCode = hook(code, filename);
+            const newCode = hook(code, filename);
             if (typeof newCode !== 'string') {
               throw new Error(HOOK_RETURNED_NOTHING_ERROR_MESSAGE);
             }
@@ -84,7 +85,7 @@ function addHook(hook, opts) {
     if (reverted) return;
     reverted = true;
 
-    exts.forEach(function revertExtension(ext) {
+    exts.forEach((ext) => {
       // if the current loader for the extension is our loader then unregister it and set the oldLoader again
       // if not we can not do anything as we cannot remove a loader from within the loader-chain
       if (Module._extensions[ext] === loaders[ext]) {
@@ -95,5 +96,5 @@ function addHook(hook, opts) {
 }
 
 module.exports = {
-  addHook: addHook, // TODO: Maybe just export addHook?
+  addHook, // TODO: Maybe just export addHook?
 };

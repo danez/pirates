@@ -5,11 +5,11 @@ import { assertModule } from './helpers/utils';
 
 const call = f => f();
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   t.context = rewire('../');
 });
 
-test('exts', t => {
+test('exts', (t) => {
   const reverts = [
     t.context.addHook(code => code.replace('@@a', 'a!')),
   ];
@@ -28,7 +28,7 @@ test('exts', t => {
 // @@d: d! @@e
 // @@e: e!
 
-test('chain', t => {
+test('chain', (t) => {
   // Cheap and dirty way to load .foo files as .js files.
   require.extensions['.foojs'] = require.extensions['.js'];
 
