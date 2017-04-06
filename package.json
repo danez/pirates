@@ -3,7 +3,7 @@
   "description": "Properly hijack require",
   "main": "lib/index.js",
   "scripts": {
-    "test": "npm run lint &&  ava",
+    "test": "npm run lint && ava",
     "test:cov": "npm run lint && echo \"Code Coverage Currently Doesn't Work, Sorry!\"",
     "coveralls:upload": "cat ./coverage/lcov.info | coveralls",
     "lint": "eslint .",
@@ -18,18 +18,21 @@
     "email": "ari@ariporad.com",
     "url": "http://ariporad.com"
   },
+  "dependencies": {
+    "node-modules-regexp": "^1.0.0"
+  },
   "devDependencies": {
     "ava": "^0.19.0",
     "babel-eslint": "^4.1.5",
     "coveralls": "^2.11.4",
-    "cz-conventional-changelog": "^1.1.5",
+    "cz-conventional-changelog": "^2.0.0",
     "decache": "^4.1.0",
     "eslint": "^1.10.3",
     "eslint-config-airbnb": "^2.0.0",
     "istanbul": "^1.0.0-alpha.2",
     "mock-require": "^1.2.1",
     "rewire": "^2.5.1",
-    "semantic-release": "^4.3.5"
+    "semantic-release": "^6.3.2"
   },
   "license": "MIT",
   "bugs": {
@@ -38,11 +41,8 @@
   "homepage": "https://github.com/ariporad/pirates#readme",
   "config": {
     "commitizen": {
-      "path": "node_modules/cz-conventional-changelog/"
+      "path": "cz-conventional-changelog"
     }
-  },
-  "dependencies": {
-    "node-modules-regexp": "^1.0.0"
   },
   "ava": {
     "files": [
