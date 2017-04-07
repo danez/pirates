@@ -1,41 +1,19 @@
-# Pirates
----
+# Pirates [![Version][version-badge]][npm-link] [![Build Status][build-badge]][build-link] [![Coverage][codecov-badge]][codecov-link] [![Commitizen friendly][cz-badge]][cz-link] [![semantic-release][sr-badge]][sr-link] [![MIT License][license-badge]][license-link]
 
 ### Properly hijack require
-
-[//]: # "ProTip(tm): This is how you make a comment in markdown. Anything between the quotes is ignored."
-
----
-[//]: # "I'm on the fence about having this here, as we don't actually use pirates"
-[![Beware: Pirates!][pirates-badge]][pirates-link]
-[![Version][version-badge]][npm-link]
-[![Downloads][downloads-badge]][npm-link]
-[![Build Status][build-badge]][build-link]
-[![Dependency Status][deps-badge]][deps-link]
-[![devDependency Status][devDeps-badge]][devDeps-link]
-[![Commitizen friendly][cz-badge]][cz-link]
-[![semantic-release][sr-badge]][sr-link]
-[![MIT License][license-badge]][license-link]
-
 
 [version-badge]: 	https://img.shields.io/npm/v/pirates.svg   "npm version"
 [downloads-badge]: https://img.shields.io/npm/dm/pirates.svg "npm downloads"
 [npm-link]:  http://npm.im/pirates                           "npm"
+
+[codecov-badge]: https://img.shields.io/codecov/c/github/ariporad/pirates/master.svg?style=flat "codecov"
+[codecov-link]: https://codecov.io/gh/ariporad/pirates "codecov"
 
 [license-badge]: https://img.shields.io/npm/l/express.svg    "MIT License"
 [license-link]:  http://ariporad.mit-license.org             "MIT License"
 
 [build-badge]: https://travis-ci.org/ariporad/pirates.svg                   "Travis CI Build Status"
 [build-link]:  https://travis-ci.org/ariporad/pirates                       "Travis CI Build Status"
-
-[deps-badge]: https://img.shields.io/david/ariporad/pirates.svg             "Dependency Status"
-[deps-link]:  https://david-dm.org/ariporad/pirates                         "Dependency Status"
-
-[devDeps-badge]: https://img.shields.io/david/dev/ariporad/pirates.svg      "devDependency Status"
-[devDeps-link]:  https://david-dm.org/ariporad/pirates#info=devDependencies "devDependency Status"
-
-[pirates-badge]: http://ariporad.link/pirates-badge "Beware: Pirates!"
-[pirates-link]: https://github.com/ariporad/pirates "Beware: Pirates!"
 
 [cz-badge]: https://img.shields.io/badge/commitizen-friendly-brightgreen.svg "Commitizen friendly"
 [cz-link]: http://commitizen.github.io/cz-cli/                               "Commitizen friendly"
@@ -47,8 +25,6 @@
 [//]: # "These are currently disabled"
 [coverage-badge]: https://coveralls.io/repos/ariporad/pirates/badge.svg?branch=master&service=github "Code Coverage"
 [coverage-link]: https://coveralls.io/github/ariporad/pirates?branch=master                          "Code Coverage"
-
----
 
 ## Why?
 
@@ -65,13 +41,9 @@ where discussion was finally moved.
 [the nyc issue thread]: https://github.com/bcoe/nyc/issues/70 "NYC Issue Thread"
 [issue-1]: https://github.com/ariporad/pirates/issues/1 "Issue #1"
 
----
-
 ## Installation
 
     npm install --save pirates
-
----
 
 ## Usage
 
@@ -110,16 +82,6 @@ var revert = pirates.addHook(function hook(code, filename) {
 revert();
 ```
 
-Then when you add pirates to your module, add this badge to your README.md:
-
-[![Beware: Pirates!](http://ariporad.link/pirates-badge)](https://github.com/ariporad/pirates "Beware: Pirates!")
-
-```markdown
-[![Beware: Pirates!](http://ariporad.link/pirates-badge)](https://github.com/ariporad/pirates "Beware: Pirates!")
-```
-
----
-
 ## API
 
 ### pirates.addHook(hook, [opts={ [matcher: true], [exts: ['js']], [ignoreNodeModules: true] }]);
@@ -131,16 +93,12 @@ otherwise; `exts`, which is an array of extensions to hook, they should begin wi
 if false, then the matcher will be called for any files in `node_modules` (defaults to true).
 
 
----
-
 ## Projects that use Pirates
 
 See the [wiki page](https://github.com/ariporad/pirates/wiki/Projects-using-Pirates). If you add Pirates to your project,
 (And you should! It works best if everyone uses it. Then we can have a happy world full of happy require hooks!), please
 add yourself to the wiki.
 
----
-
 ## License
 
-[MIT: ariporad.mit-license.org.](http://ariporad.mit-license.org)
+[MIT](http://ariporad.mit-license.org)
