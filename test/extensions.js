@@ -16,7 +16,7 @@ test('exts', (t) => {
 
   assertModule(t, 'extensions-main.js', 'a! @@a');
 
-  reverts.map(call);
+  reverts.forEach(call);
 });
 
 // a: @@a @@d => a! @@b d! e!
@@ -44,5 +44,5 @@ test('chain', (t) => {
   assertModule(t, 'extensions-chain.js', 'a! @@b d! e!');
   assertModule(t, 'extensions-chain.foojs', 'a! b! c! d! e!');
 
-  reverts.map(call);
+  reverts.forEach(call);
 });
