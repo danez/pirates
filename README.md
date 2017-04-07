@@ -133,6 +133,27 @@ if false, then the matcher will be called for any files in `node_modules` (defau
 
 ---
 
+## Pirates and bundling-specific require syntax
+
+Pirates can intercept `require()` calls, but relies on Node to first resolve the content by loading in the requested file and extracting its data as string. This means that Pirates will not be able to hook into require calls that use custom bundler-specific syntax, such as Webpack's ["inline" loader syntax](https://webpack.github.io/docs/loaders.html). The following `require` call will work with a webpack config with the appropriate loader bound, for instance, but will not work properly in a plain Node.js + Pirates setting:
+
+```
+require('file!./data.txt?name=new.file.name');
+```
+
+Pirates does not get to modify the filename before Node tries to load in the file, and so Node will try to load a file from the literal path `file!./data.txt?name=new.file.name`, which will fail and result in a runtime error.
+
+If you need custom requires like this, you will need to use the plain require call in your scripts, with your bundler set to automatically look for these custom require extensions. This means in your scripts using:
+
+```
+require('./data.txt');
+```
+
+and then have your bundler perform (pre)processing based on the extension, such as by using Webpack's loaders [by config](https://webpack.github.io/docs/loaders.html#loaders-by-config), instead.
+
+
+---
+
 ## Projects that use Pirates
 
 See the [wiki page](https://github.com/ariporad/pirates/wiki/Projects-using-Pirates). If you add Pirates to your project,
