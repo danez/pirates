@@ -69,6 +69,10 @@
     "include": [
       "src/*.js"
     ],
+    "reporter": [
+      "json",
+      "text"
+    ],
     "sourceMap": false,
     "instrument": false
   }

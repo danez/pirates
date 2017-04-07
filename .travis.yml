@@ -6,7 +6,6 @@ node_js:
   - '4'
 script:
   - yarn test
-after_script:
-#  - npm run coveralls:upload
 after_success:
+  - bash <(curl -s https://codecov.io/bash) -f coverage/coverage-final.json
   - yarn run semantic-release
