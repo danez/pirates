@@ -21,20 +21,17 @@
 [sr-badge]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
 [sr-link]: https://github.com/semantic-release/semantic-release
 
-[//]: # "This comes last, as it's really long"
-[//]: # "These are currently disabled"
-[coverage-badge]: https://coveralls.io/repos/ariporad/pirates/badge.svg?branch=master&service=github "Code Coverage"
-[coverage-link]: https://coveralls.io/github/ariporad/pirates?branch=master                          "Code Coverage"
+<a href="https://app.codesponsor.io/link/napKqUy7ZTEunMtesQZm9ygE/ariporad/pirates" rel="nofollow"><img src="https://app.codesponsor.io/embed/napKqUy7ZTEunMtesQZm9ygE/ariporad/pirates.svg" style="width: 888px; height: 68px;" alt="Sponsor" /></a>
 
 ## Why?
 
 Two reasons:
 1. Babel and istanbul were breaking each other.
-2. Everyone seemed to re-invent the wheel on this, and everyone wanted a solution that was DRY, simple, easy to use, 
+2. Everyone seemed to re-invent the wheel on this, and everyone wanted a solution that was DRY, simple, easy to use,
 and made everything Just Work™, while allowing multiple require hooks, in a fashion similar to calling `super`.
 
-For some context, see [the Babel issue thread][] which started this all, then [the nyc issue thread][], where 
-discussion was moved (as we began to discuss just using the code nyc had developed), and finally to [#1][issue-1] 
+For some context, see [the Babel issue thread][] which started this all, then [the nyc issue thread][], where
+discussion was moved (as we began to discuss just using the code nyc had developed), and finally to [#1][issue-1]
 where discussion was finally moved.
 
 [the Babel issue thread]: https://github.com/babel/babel/pull/3062 "Babel Issue Thread"
@@ -56,19 +53,19 @@ var pirates = require('pirates');
 var old = require.extensions['.js'];
 require.extensions['.js'] = function (mod, filename) {
   var compile = mod._compile;
-  
+
   mod._compile = function (code, filename) {
     code = myLib.compileFile(code, filename);
     compile.call(mod, code, filename);
   }
-  
+
   old(mod, filename);
 }
 
 function matcher(filename) {
-  // Here, you can inspect the filename to determine if it should be hooked or 
+  // Here, you can inspect the filename to determine if it should be hooked or
   // not. Just return a truthy/falsey. Files in node_modules are automatically ignored, unless otherwise specified (see below).
-  
+
   // TODO: Implement logic
   return true;
 }
@@ -86,10 +83,10 @@ revert();
 
 ### pirates.addHook(hook, [opts={ [matcher: true], [exts: ['js']], [ignoreNodeModules: true] }]);
 Add a require hook. `hook` must be a function that takes `(code, filename)`, and returns the modified code. `opts` is
-an optional options object. Available options are: `matcher`, which is a function that accepts a filename, and 
-returns a truthy value if the file should be hooked (defaults to a function that always returns true), falsey if 
-otherwise; `exts`, which is an array of extensions to hook, they should begin with `.` (defaults to `['.js']`); 
-`ignoreNodeModules`, if true, any file in a `node_modules` folder wont be hooked (the matcher also wont be called), 
+an optional options object. Available options are: `matcher`, which is a function that accepts a filename, and
+returns a truthy value if the file should be hooked (defaults to a function that always returns true), falsey if
+otherwise; `exts`, which is an array of extensions to hook, they should begin with `.` (defaults to `['.js']`);
+`ignoreNodeModules`, if true, any file in a `node_modules` folder wont be hooked (the matcher also wont be called),
 if false, then the matcher will be called for any files in `node_modules` (defaults to true).
 
 
