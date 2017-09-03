@@ -61,7 +61,7 @@ export function addHook(hook, opts = {}) { // eslint-disable-line import/prefer-
       if (!reverted) {
         if (shouldCompile(filename, exts, matcher, ignoreNodeModules)) {
           compile = mod._compile;
-          mod._compile = function _compile(code /* , filename*/) {
+          mod._compile = function _compile(code) {
             // reset the compile immediately as otherwise we end up having the
             // compile function being changed even though this loader might be reverted
             // Not reverting it here leads to long useless compile chains when doing

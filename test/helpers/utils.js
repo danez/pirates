@@ -13,7 +13,7 @@ function assertModule(t, filename, expected) {
 function makeNonPiratesHook(macro, value) {
   const oldLoader = require.extensions['.js'];
   require.extensions['.js'] = function loader(mod, filename) {
-    const _compile = mod._compile;
+    const { _compile } = mod;
     mod._compile = function newCompile(code) {
       if (path.resolve(filename, '..') === __dirname) return _compile.call(mod, code, filename);
       return _compile.call(mod, code.replace(macro, value), filename);
