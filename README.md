@@ -21,8 +21,6 @@
 [sr-badge]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
 [sr-link]: https://github.com/semantic-release/semantic-release
 
-<a href="https://app.codesponsor.io/link/napKqUy7ZTEunMtesQZm9ygE/ariporad/pirates" rel="nofollow"><img src="https://app.codesponsor.io/embed/napKqUy7ZTEunMtesQZm9ygE/ariporad/pirates.svg" style="width: 888px; height: 68px;" alt="Sponsor" /></a>
-
 ## Why?
 
 Two reasons:
@@ -99,3 +97,5 @@ add yourself to the wiki.
 ## License
 
 [MIT](http://ariporad.mit-license.org)
+
+<a href="https://app.codesponsor.io/link/napKqUy7ZTEunMtesQZm9ygE/ariporad/pirates" rel="nofollow"><img src="https://app.codesponsor.io/embed/napKqUy7ZTEunMtesQZm9ygE/ariporad/pirates.svg" style="width: 888px; height: 68px;" alt="Sponsor" /></a>
