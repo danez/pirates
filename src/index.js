@@ -1,7 +1,12 @@
 /* (c) 2015 Ari Porad (@ariporad) <http://ariporad.com>. License: ariporad.mit-license.org */
-import Module from 'module';
+import BuiltinModule from 'module';
 import path from 'path';
 import nodeModulesRegex from 'node-modules-regexp';
+
+// Guard against poorly mocked module constructors.
+const Module = module.constructor.length > 1
+  ? module.constructor
+  : BuiltinModule;
 
 const HOOK_RETURNED_NOTHING_ERROR_MESSAGE = '[Pirates] A hook returned a non-string, or nothing at all! This is a' +
                                           ' violation of intergalactic law!\n' +
