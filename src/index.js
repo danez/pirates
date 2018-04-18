@@ -40,7 +40,7 @@ function shouldCompile(filename, exts, matcher, ignoreNodeModules) {
  * @param {Boolean} [opts.ignoreNodeModules=true] - Auto-ignore node_modules. Independent of any matcher.
  * @returns {Function} revert - Reverts the hooks.
  */
-export function addHook(hook, opts = {}) { // eslint-disable-line import/prefer-default-export
+export function addHook(hook, opts = {}) {
   let reverted = false;
   const loaders = [];
   const oldLoaders = [];
@@ -99,3 +99,6 @@ export function addHook(hook, opts = {}) { // eslint-disable-line import/prefer-
     });
   };
 }
+
+addHook.addHook = addHook;
+export default addHook;
