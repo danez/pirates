@@ -79,7 +79,7 @@ revert();
 
 ## API
 
-### pirates.addHook(hook, [opts={ [matcher: true], [exts: ['js']], [ignoreNodeModules: true] }]);
+### pirates.addHook(hook, [opts={ [matcher: true], [exts: ['.js']], [ignoreNodeModules: true] }]);
 Add a require hook. `hook` must be a function that takes `(code, filename)`, and returns the modified code. `opts` is
 an optional options object. Available options are: `matcher`, which is a function that accepts a filename, and
 returns a truthy value if the file should be hooked (defaults to a function that always returns true), falsey if
