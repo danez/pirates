@@ -45,33 +45,23 @@ where discussion was finally moved.
 Using pirates is really easy:
 ```javascript
 // my-module/register.js
-var pirates = require('pirates');
-
-// Instead of messing with require like this:
-var old = require.extensions['.js'];
-require.extensions['.js'] = function (mod, filename) {
-  var compile = mod._compile;
-
-  mod._compile = function (code, filename) {
-    code = myLib.compileFile(code, filename);
-    compile.call(mod, code, filename);
-  }
-
-  old(mod, filename);
-}
+const addHook = require('pirates').addHook;
+// Or if you use ES modules
+// import { addHook } from 'pirates';
 
 function matcher(filename) {
   // Here, you can inspect the filename to determine if it should be hooked or
-  // not. Just return a truthy/falsey. Files in node_modules are automatically ignored, unless otherwise specified (see below).
+  // not. Just return a truthy/falsey. Files in node_modules are automatically ignored, 
+  // unless otherwise specified in options (see below).
 
-  // TODO: Implement logic
+  // TODO: Implement your logic here
   return true;
 }
 
-// Now you can just do this!:
-var revert = pirates.addHook(function hook(code, filename) {
-  return code.replace('@@foo', 'console.log(\'foo\');');
-}, { exts: ['.js'], matcher: matcher });
+const revert = addHook(
+  (code, filename) => code.replace('@@foo', 'console.log(\'foo\');'), 
+  { exts: ['.js'], matcher }
+);
 
 // And later, if you want to un-hook require, you can just do:
 revert();
