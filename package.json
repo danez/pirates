@@ -28,7 +28,7 @@
     "node-modules-regexp": "^1.0.0"
   },
   "devDependencies": {
-    "ava": "^0.23.0",
+    "ava": "^0.25.0",
     "babel-cli": "^6.24.0",
     "babel-eslint": "^8.0.2",
     "babel-plugin-istanbul": "^4.1.1",
@@ -36,14 +36,14 @@
     "cross-env": "^5.0.5",
     "cz-conventional-changelog": "^2.0.0",
     "decache": "^4.1.0",
-    "eslint": "^4.6.0",
-    "eslint-config-airbnb-base": "^12.0.0",
+    "eslint": "^5.1.0",
+    "eslint-config-airbnb-base": "^13.0.0",
     "eslint-plugin-import": "^2.2.0",
-    "mock-require": "^2.0.2",
-    "nyc": "^11.1.0",
-    "rewire": "^2.5.1",
+    "mock-require": "^3.0.2",
+    "nyc": "^12.0.2",
+    "rewire": "^4.0.1",
     "rimraf": "^2.6.1",
-    "semantic-release": "^9.0.0"
+    "semantic-release": "^15.7.0"
   },
   "license": "MIT",
   "bugs": {
