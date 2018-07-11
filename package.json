@@ -17,7 +17,7 @@
     "url": "https://github.com/ariporad/pirates.git"
   },
   "engines": {
-    "node": ">= 4"
+    "node": ">= 6"
   },
   "author": {
     "name": "Ari Porad",
