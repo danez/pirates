@@ -3,16 +3,14 @@ import test from 'ava';
 import rewire from 'rewire';
 import { assertModule } from './helpers/utils';
 
-const call = f => f();
+const call = (f) => f();
 
 test.beforeEach((t) => {
   t.context = rewire('../');
 });
 
 test('exts', (t) => {
-  const reverts = [
-    t.context.addHook(code => code.replace('@@a', 'a!')),
-  ];
+  const reverts = [t.context.addHook((code) => code.replace('@@a', 'a!'))];
 
   assertModule(t, 'extensions-main.js', 'a! @@a');
 
@@ -33,11 +31,21 @@ test('chain', (t) => {
   require.extensions['.foojs'] = require.extensions['.js'];
 
   const reverts = [
-    t.context.addHook(code => code.replace('@@a', 'a! @@b'), { exts: ['.js', '.foojs'] }),
-    t.context.addHook(code => code.replace('@@b', 'b! @@c'), { exts: ['.foojs'] }),
-    t.context.addHook(code => code.replace('@@c', 'c!'), { exts: ['.js', '.foojs'] }),
-    t.context.addHook(code => code.replace('@@d', 'd! @@e'), { exts: ['.js', '.foojs'] }),
-    t.context.addHook(code => code.replace('@@e', 'e!'), { exts: ['.js', '.foojs'] }),
+    t.context.addHook((code) => code.replace('@@a', 'a! @@b'), {
+      exts: ['.js', '.foojs'],
+    }),
+    t.context.addHook((code) => code.replace('@@b', 'b! @@c'), {
+      exts: ['.foojs'],
+    }),
+    t.context.addHook((code) => code.replace('@@c', 'c!'), {
+      exts: ['.js', '.foojs'],
+    }),
+    t.context.addHook((code) => code.replace('@@d', 'd! @@e'), {
+      exts: ['.js', '.foojs'],
+    }),
+    t.context.addHook((code) => code.replace('@@e', 'e!'), {
+      exts: ['.js', '.foojs'],
+    }),
     () => delete require.extensions['.foojs'],
   ];
 

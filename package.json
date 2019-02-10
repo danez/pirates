@@ -6,7 +6,7 @@
     "clean": "rimraf lib",
     "build": "babel src -d lib",
     "test": "yarn run lint && cross-env BABEL_ENV=test yarn run build && nyc ava",
-    "lint": "eslint .",
+    "lint": "eslint --report-unused-disable-directives .",
     "prepublish": "yarn run clean && yarn run build"
   },
   "files": [
@@ -28,21 +28,23 @@
     "node-modules-regexp": "^1.0.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.0.0-beta.53",
-    "@babel/core": "^7.0.0-beta.53",
-    "@babel/preset-env": "^7.0.0-beta.53",
-    "ava": "^0.25.0",
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "ava": "^1.2.1",
     "babel-core": "^7.0.0-0",
-    "babel-eslint": "^9.0.0-beta.2",
-    "babel-plugin-istanbul": "^4.1.1",
+    "babel-eslint": "^10.0.1",
+    "babel-plugin-istanbul": "^5.1.0",
     "cross-env": "^5.0.5",
     "cz-conventional-changelog": "^2.0.0",
     "decache": "^4.1.0",
     "eslint": "^5.1.0",
-    "eslint-config-airbnb-base": "^13.0.0",
+    "eslint-config-prettier": "^4.0.0",
     "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-prettier": "^3.0.1",
     "mock-require": "^3.0.2",
-    "nyc": "^12.0.2",
+    "nyc": "^13.2.0",
+    "prettier": "^1.16.4",
     "rewire": "^4.0.1",
     "rimraf": "^2.6.1",
     "semantic-release": "^15.7.0"
@@ -61,7 +63,7 @@
     "files": [
       "test/*.js"
     ],
-    "source": [
+    "sources": [
       "lib/**/*.js"
     ]
   },

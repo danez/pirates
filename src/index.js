@@ -4,33 +4,40 @@ import path from 'path';
 import nodeModulesRegex from 'node-modules-regexp';
 
 // Guard against poorly mocked module constructors.
-const Module = module.constructor.length > 1
-  ? module.constructor
-  : BuiltinModule;
+const Module =
+  module.constructor.length > 1 ? module.constructor : BuiltinModule;
 
-const HOOK_RETURNED_NOTHING_ERROR_MESSAGE = '[Pirates] A hook returned a non-string, or nothing at all! This is a'
-                                          + ' violation of intergalactic law!\n'
-                                          + '--------------------\n'
-                                          + 'If you have no idea what this means or what Pirates is, let me explain: '
-                                          + 'Pirates is a module that makes is easy to implement require hooks. One of'
-                                          + ' the require hooks you\'re using uses it. One of these require hooks'
-                                          + ' didn\'t return anything from it\'s handler, so we don\'t know what to'
-                                          + ' do. You might want to debug this.';
+const HOOK_RETURNED_NOTHING_ERROR_MESSAGE =
+  '[Pirates] A hook returned a non-string, or nothing at all! This is a' +
+  ' violation of intergalactic law!\n' +
+  '--------------------\n' +
+  'If you have no idea what this means or what Pirates is, let me explain: ' +
+  'Pirates is a module that makes is easy to implement require hooks. One of' +
+  " the require hooks you're using uses it. One of these require hooks" +
+  " didn't return anything from it's handler, so we don't know what to" +
+  ' do. You might want to debug this.';
 
 function shouldCompile(filename, exts, matcher, ignoreNodeModules) {
-  if (typeof filename !== 'string') return false;
-  if (exts.indexOf(path.extname(filename)) === -1) return false;
+  if (typeof filename !== 'string') {
+    return false;
+  }
+  if (exts.indexOf(path.extname(filename)) === -1) {
+    return false;
+  }
 
   const resolvedFilename = path.resolve(filename);
 
-  if (ignoreNodeModules && nodeModulesRegex.test(resolvedFilename)) return false;
-  if (matcher && typeof matcher === 'function') return !!matcher(resolvedFilename);
+  if (ignoreNodeModules && nodeModulesRegex.test(resolvedFilename)) {
+    return false;
+  }
+  if (matcher && typeof matcher === 'function') {
+    return !!matcher(resolvedFilename);
+  }
 
   return true;
 }
 
 /**
- *
  * Add a require hook.
  *
  * @param {Function} hook - The hook. Accepts the code of the module and the filename. Required.
@@ -40,7 +47,7 @@ function shouldCompile(filename, exts, matcher, ignoreNodeModules) {
  * @param {Boolean} [opts.ignoreNodeModules=true] - Auto-ignore node_modules. Independent of any matcher.
  * @returns {Function} revert - Reverts the hooks.
  */
-export function addHook(hook, opts = {}) { // eslint-disable-line import/prefer-default-export
+export function addHook(hook, opts = {}) {
   let reverted = false;
   const loaders = [];
   const oldLoaders = [];
@@ -54,10 +61,14 @@ export function addHook(hook, opts = {}) { // eslint-disable-line import/prefer-
   const matcher = opts.matcher || null;
   const ignoreNodeModules = opts.ignoreNodeModules !== false;
   exts = opts.extensions || opts.exts || opts.extension || opts.ext || ['.js'];
-  if (!Array.isArray(exts)) exts = [exts];
+  if (!Array.isArray(exts)) {
+    exts = [exts];
+  }
 
   exts.forEach((ext) => {
-    if (typeof ext !== 'string') throw new TypeError(`Invalid Extension: ${ext}`);
+    if (typeof ext !== 'string') {
+      throw new TypeError(`Invalid Extension: ${ext}`);
+    }
     const oldLoader = Module._extensions[ext] || originalJSLoader;
     oldLoaders[ext] = oldLoader;
 

@@ -3,7 +3,7 @@ import test from 'ava';
 import rewire from 'rewire';
 import { makeNonPiratesHook, assertModule } from './helpers/utils';
 
-const call = f => (typeof f === 'function' ? f() : undefined);
+const call = (f) => (typeof f === 'function' ? f() : undefined);
 
 test.beforeEach((t) => {
   t.context = rewire('../');
@@ -11,13 +11,13 @@ test.beforeEach((t) => {
 
 test('non-pirates hooks', (t) => {
   const reverts = [
-    t.context.addHook(code => code.replace('@@a', 'a! @@b')),
+    t.context.addHook((code) => code.replace('@@a', 'a! @@b')),
     makeNonPiratesHook('@@b', 'b!'),
-    t.context.addHook(code => code.replace('@@c', 'c!'), {
-      matcher: filename => filename.indexOf('foo') === -1,
+    t.context.addHook((code) => code.replace('@@c', 'c!'), {
+      matcher: (filename) => filename.indexOf('foo') === -1,
     }),
     makeNonPiratesHook('@@d', 'd! @@e'),
-    t.context.addHook(code => code.replace('@@e', 'e!')),
+    t.context.addHook((code) => code.replace('@@e', 'e!')),
   ];
 
   assertModule(t, 'chain-foo.js', 'in chain-foo a! b! @@c d! e!');
