@@ -6,7 +6,6 @@ function assertModule(t, filename, expected) {
   const absFilename = path.join(__dirname, '../fixture', filename);
   decache(absFilename);
 
-  // eslint-disable-next-line import/no-dynamic-require, global-require
   return t.is(require(absFilename), expected);
 }
 
@@ -15,14 +14,12 @@ function makeNonPiratesHook(macro, value) {
   require.extensions['.js'] = function loader(mod, filename) {
     const { _compile } = mod;
     mod._compile = function newCompile(code) {
-      if (path.resolve(filename, '..') === __dirname) return _compile.call(mod, code, filename);
+      if (path.resolve(filename, '..') === __dirname)
+        return _compile.call(mod, code, filename);
       return _compile.call(mod, code.replace(macro, value), filename);
     };
     oldLoader(mod, filename);
   };
 }
 
-export {
-  assertModule,
-  makeNonPiratesHook,
-};
+export { assertModule, makeNonPiratesHook };

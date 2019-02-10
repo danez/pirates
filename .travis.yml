@@ -1,17 +1,15 @@
-sudo: false
 language: node_js
 cache:
   yarn: true
-  directories:
-    - "node_modules"
 node_js:
+  - '11'
   - '10'
   - '8'
   - '6'
-install: yarn --frozen-lockfile --ignore-engines
-before_script:
+before_install:
   - curl -o- -L https://yarnpkg.com/install.sh | bash
   - export PATH="$HOME/.yarn/bin:$PATH"
+install: yarn --frozen-lockfile --ignore-engines
 script:
   - yarn test
 after_success:
