@@ -2,6 +2,7 @@
   "name": "pirates",
   "description": "Properly hijack require",
   "main": "lib/index.js",
+  "types": "index.d.ts",
   "scripts": {
     "clean": "rimraf lib",
     "build": "babel src -d lib",
@@ -10,7 +11,8 @@
     "prepublish": "yarn run clean && yarn run build"
   },
   "files": [
-    "lib"
+    "lib",
+    "index.d.ts"
   ],
   "repository": {
     "type": "git",
