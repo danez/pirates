@@ -17,6 +17,12 @@ const HOOK_RETURNED_NOTHING_ERROR_MESSAGE =
   " didn't return anything from it's handler, so we don't know what to" +
   ' do. You might want to debug this.';
 
+/**
+ * @param {string} filename The filename to check.
+ * @param {string[]} exts The extensions to hook. Should start with '.' (ex. ['.js']).
+ * @param {Matcher|null} matcher A matcher function, will be called with path to a file. Should return truthy if the file should be hooked, falsy otherwise.
+ * @param {boolean} ignoreNodeModules Auto-ignore node_modules. Independent of any matcher.
+ */
 function shouldCompile(filename, exts, matcher, ignoreNodeModules) {
   if (typeof filename !== 'string') {
     return false;
@@ -38,14 +44,43 @@ function shouldCompile(filename, exts, matcher, ignoreNodeModules) {
 }
 
 /**
+ * @callback Hook The hook. Accepts the code of the module and the filename.
+ * @param {string} code
+ * @param {string} filename
+ * @returns {string}
+ */
+/**
+ * @callback Matcher A matcher function, will be called with path to a file.
+ *
+ * Should return truthy if the file should be hooked, falsy otherwise.
+ * @param {string} path
+ * @returns {boolean}
+ */
+/**
+ * @callback RevertFunction Reverts the hook when called.
+ * @returns {void}
+ */
+/**
+ * @typedef {object} Options
+ * @property {Matcher|null} [matcher=null] A matcher function, will be called with path to a file.
+ *
+ * Should return truthy if the file should be hooked, falsy otherwise.
+ *
+ * @property {string[]} [extensions=['.js']] The extensions to hook. Should start with '.' (ex. ['.js']).
+ * @property {string[]} [exts=['.js']] The extensions to hook. Should start with '.' (ex. ['.js']).
+ *
+ * @property {string[]} [extension=['.js']] The extensions to hook. Should start with '.' (ex. ['.js']).
+ * @property {string[]} [ext=['.js']] The extensions to hook. Should start with '.' (ex. ['.js']).
+ *
+ * @property {boolean} [ignoreNodeModules=true] Auto-ignore node_modules. Independent of any matcher.
+ */
+
+/**
  * Add a require hook.
  *
- * @param {Function} hook - The hook. Accepts the code of the module and the filename. Required.
- * @param {Object} [opts] - Options
- * @param {String[]} [opts.exts=['.js']] - The extensions to hook. Should start with '.' (ex. ['.js']).
- * @param {Function(path)} [opts.matcher] - A matcher function, will be called with path to a file. Should return truthy if the file should be hooked, falsy otherwise.
- * @param {Boolean} [opts.ignoreNodeModules=true] - Auto-ignore node_modules. Independent of any matcher.
- * @returns {Function} revert - Reverts the hooks.
+ * @param {Hook} hook The hook. Accepts the code of the module and the filename. Required.
+ * @param {Options} [opts] Options
+ * @returns {RevertFunction} The `revert` function. Reverts the hook when called.
  */
 export function addHook(hook, opts = {}) {
   let reverted = false;
