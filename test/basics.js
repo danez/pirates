@@ -56,3 +56,29 @@ test('matcher is called only once per file', (t) => {
 
   reverts.forEach(call);
 });
+
+test('reverts to previous loader', (t) => {
+  require.extensions['.foojs'] = require.extensions['.js'];
+  const revert = t.context.addHook((code) => code.replace('@@a', '<a>'), {
+    exts: ['.foojs'],
+  });
+
+  t.not(require.extensions['.foojs'], require.extensions['.js']);
+
+  revert();
+
+  t.is(require.extensions['.foojs'], require.extensions['.js']);
+});
+
+test('reverts to nothing if no previous loader', (t) => {
+  t.is(require.extensions['.foo2js'], undefined);
+  const revert = t.context.addHook((code) => code.replace('@@a', '<a>'), {
+    exts: ['.foo2js'],
+  });
+
+  t.not(require.extensions['.foo2js'], undefined);
+
+  revert();
+
+  t.is(require.extensions['.foo2js'], undefined);
+});

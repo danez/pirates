@@ -105,7 +105,7 @@ export function addHook(hook, opts = {}) {
       throw new TypeError(`Invalid Extension: ${ext}`);
     }
     const oldLoader = Module._extensions[ext] || originalJSLoader;
-    oldLoaders[ext] = oldLoader;
+    oldLoaders[ext] = Module._extensions[ext];
 
     loaders[ext] = Module._extensions[ext] = function newLoader(mod, filename) {
       let compile;
