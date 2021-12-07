@@ -43,6 +43,13 @@ jobs:
     - name: Unit tests
       run: yarn test
 
+    - name: Upload code coverage
+      uses: codecov/codecov-action@v2
+      with:
+        files: ./coverage/coverage-final.json
+        name: codecov-umbrella
+        fail_ci_if_error: true
+
   lint:
     name: Lint
     runs-on: ubuntu-latest
@@ -70,3 +77,38 @@ jobs:
 
     - name: Lint
       run: yarn lint
+
+  release:
+    needs: [tests, lint]
+    if: github.ref == 'refs/heads/main'
+    name: Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'yarn'
+
+      - name: Cache node_modules
+        uses: actions/cache@v2
+        id: cache-nodemodules
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ env.NODE_VERSION }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install dependencies
+        if: steps.cache-nodemodules.outputs.cache-hit != 'true'
+        run: yarn install --frozen-lockfile --non-interactive
+
+      - name: Release
+        run: npx semantic-release --branches main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
