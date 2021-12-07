@@ -2,8 +2,8 @@
 
 ### Properly hijack require
 
-[codecov-badge]: https://img.shields.io/codecov/c/github/ariporad/pirates/master.svg?style=flat "codecov"
-[codecov-link]: https://codecov.io/gh/ariporad/pirates "codecov"
+[codecov-badge]: https://img.shields.io/codecov/c/github/danez/pirates/master.svg?style=flat "codecov"
+[codecov-link]: https://codecov.io/gh/danez/pirates "codecov"
 
 ## Why?
 
