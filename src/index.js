@@ -1,8 +1,8 @@
 /* (c) 2015 Ari Porad (@ariporad) <http://ariporad.com>. License: ariporad.mit-license.org */
 import BuiltinModule from 'module';
 import path from 'path';
-import nodeModulesRegex from 'node-modules-regexp';
 
+const nodeModulesRegex = /^(?:.*[\\/])?node_modules(?:[\\/].*)?$/;
 // Guard against poorly mocked module constructors.
 const Module =
   module.constructor.length > 1 ? module.constructor : BuiltinModule;

@@ -21,6 +21,35 @@ test('basics', (t) => {
   reverts.forEach(call);
 });
 
+test('ignore node_modules inactive', (t) => {
+  const reverts = [
+    t.context.addHook((code) => code.replace('@@a', '<a>'), {
+      ignoreNodeModules: false,
+    }),
+    t.context.addHook((code) => code.replace('@@b', '<b>'), {
+      ignoreNodeModules: false,
+    }),
+  ];
+
+  assertModule(t, 'node_modules/basic.js', 'in basics-bar <a> <b>');
+
+  reverts.forEach(call);
+});
+
+test('ignore node_modules active', (t) => {
+  const reverts = [
+    t.context.addHook((code) => code.replace('@@a', '<a>'), {
+      ignoreNodeModules: true,
+    }),
+    t.context.addHook((code) => code.replace('@@b', '<b>'), {
+      ignoreNodeModules: true,
+    }),
+  ];
+  assertModule(t, 'node_modules/basic.js', 'in basics-bar @@a @@b');
+
+  reverts.forEach(call);
+});
+
 test('matchers', (t) => {
   const reverts = [
     t.context.addHook((code) => code.replace('@@a', '<a>'), {
