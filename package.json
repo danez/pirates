@@ -8,7 +8,8 @@
     "build": "babel src -d lib",
     "test": "cross-env BABEL_ENV=test yarn run build && nyc ava",
     "lint": "eslint --report-unused-disable-directives .",
-    "prepublish": "yarn run clean && yarn run build"
+    "prebump": "run-s lint test",
+    "prepublishOnly": "yarn run build"
   },
   "files": [
     "lib",
@@ -45,6 +46,7 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-prettier": "^3.0.1",
     "mock-require": "^3.0.2",
+    "npm-run-all": "^4.1.5",
     "nyc": "^13.2.0",
     "prettier": "^1.16.4",
     "rewire": "^4.0.1",
