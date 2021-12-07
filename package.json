@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rimraf lib",
     "build": "babel src -d lib",
-    "test": "yarn run lint && cross-env BABEL_ENV=test yarn run build && nyc ava",
+    "test": "cross-env BABEL_ENV=test yarn run build && nyc ava",
     "lint": "eslint --report-unused-disable-directives .",
     "prepublish": "yarn run clean && yarn run build"
   },
@@ -16,7 +16,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/ariporad/pirates.git"
+    "url": "https://github.com/danez/pirates.git"
   },
   "engines": {
     "node": ">= 6"
@@ -53,9 +53,9 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ariporad/pirates/issues"
+    "url": "https://github.com/danez/pirates/issues"
   },
-  "homepage": "https://github.com/ariporad/pirates#readme",
+  "homepage": "https://github.com/danez/pirates#readme",
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"
