@@ -17,16 +17,16 @@
   "automergeType": "branch",
   "packageRules": [
     {
-      "depTypeList": [
+      "matchDepTypes": [
         "devDependencies"
       ],
       "semanticCommitType": "chore"
     },
     {
-      "depTypeList": [
+      "matchDepTypes": [
         "devDependencies"
       ],
-      "updateTypes": [
+      "matchUpdateTypes": [
         "minor",
         "patch"
       ],
