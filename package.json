@@ -35,7 +35,6 @@
     "babel-eslint": "10.1.0",
     "babel-plugin-istanbul": "5.2.0",
     "cross-env": "5.2.1",
-    "cz-conventional-changelog": "2.1.0",
     "decache": "4.6.1",
     "eslint": "5.16.0",
     "eslint-config-prettier": "4.3.0",
@@ -52,11 +51,6 @@
     "url": "https://github.com/danez/pirates/issues"
   },
   "homepage": "https://github.com/danez/pirates#readme",
-  "config": {
-    "commitizen": {
-      "path": "cz-conventional-changelog"
-    }
-  },
   "ava": {
     "files": [
       "test/*.js"
