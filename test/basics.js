@@ -100,6 +100,7 @@ test('reverts to previous loader', (t) => {
 });
 
 test('reverts to nothing if no previous loader', (t) => {
+  const oldKeys = Object.keys(require.extensions);
   t.is(require.extensions['.foo2js'], undefined);
   const revert = t.context.addHook((code) => code.replace('@@a', '<a>'), {
     exts: ['.foo2js'],
@@ -110,4 +111,5 @@ test('reverts to nothing if no previous loader', (t) => {
   revert();
 
   t.is(require.extensions['.foo2js'], undefined);
+  t.deepEqual(Object.keys(require.extensions), oldKeys);
 });
