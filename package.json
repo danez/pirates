@@ -27,9 +27,9 @@
     "url": "http://ariporad.com"
   },
   "devDependencies": {
-    "@babel/cli": "7.18.9",
-    "@babel/core": "7.18.9",
-    "@babel/preset-env": "7.18.9",
+    "@babel/cli": "7.18.10",
+    "@babel/core": "7.18.10",
+    "@babel/preset-env": "7.18.10",
     "ava": "1.4.1",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "10.1.0",
