@@ -1,6 +1,6 @@
 {
   "name": "pirates",
-  "description": "Properly hijack require",
+  "description": "Properly hijack require, i.e., properly define require hooks and customizations",
   "main": "lib/index.js",
   "types": "index.d.ts",
   "scripts": {
