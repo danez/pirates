@@ -9,13 +9,13 @@ on:
   pull_request:
 
 env:
-  NODE_VERSION: 16
+  NODE_VERSION: 'lts/*'
 
 jobs:
   tests:
     strategy:
       matrix:
-        node: [ '6', '8', '10', '12', '14', '16' ]
+        node: [ '6', '8', '10', '12', '14', '16', '18', '20' ]
     name: Unit tests (Node v${{ matrix.node }})
     runs-on: ubuntu-latest
 
