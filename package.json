@@ -33,7 +33,7 @@
     "ava": "1.4.1",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "10.1.0",
-    "babel-plugin-istanbul": "5.2.0",
+    "babel-plugin-istanbul": "6.1.1",
     "cross-env": "5.2.1",
     "decache": "4.6.2",
     "eslint": "5.16.0",
