@@ -44,7 +44,7 @@
     "nyc": "13.3.0",
     "prettier": "1.19.1",
     "rewire": "4.0.1",
-    "rimraf": "3.0.2"
+    "rimraf": "5.0.5"
   },
   "license": "MIT",
   "bugs": {
