@@ -1,6 +1,7 @@
 /* (c) 2016 Ari Porad (@ariporad) <http://ariporad.com>. License: ariporad.mit-license.org */
 import test from 'ava';
 import rewire from 'rewire';
+import path from 'path';
 import { assertModule } from './helpers/utils';
 
 const call = (f) => f();
@@ -15,6 +16,24 @@ test('exts', (t) => {
   assertModule(t, 'extensions-main.js', 'a! @@a');
 
   reverts.forEach(call);
+});
+
+test('addHook works with .json files', (t) => {
+  const expected = [
+    'fixture/json.js',
+    'fixture/json.json'
+  ].map(filename => path.join(__dirname, filename));
+
+  const actual = [];
+  t.context.addHook((code, file) => {
+    actual.push(file);
+    return code;
+  }, {
+    exts: ['.js', '.json']
+  });
+
+  assertModule(t, 'json.js', 'json.json from json.js');
+  t.deepEqual(actual, expected);
 });
 
 // a: @@a @@d => a! @@b d! e!
