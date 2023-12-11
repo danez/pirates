@@ -3,7 +3,7 @@ import BuiltinModule from 'module';
 import path from 'path';
 
 const nodeModulesRegex = /^(?:.*[\\/])?node_modules(?:[\\/].*)?$/;
-// Guard against poorly mocked module constructors.
+// Guard against poorly-mocked module constructors.
 const Module =
   module.constructor.length > 1 ? module.constructor : BuiltinModule;
 
@@ -12,7 +12,7 @@ const HOOK_RETURNED_NOTHING_ERROR_MESSAGE =
   ' violation of intergalactic law!\n' +
   '--------------------\n' +
   'If you have no idea what this means or what Pirates is, let me explain: ' +
-  'Pirates is a module that makes is easy to implement require hooks. One of' +
+  'Pirates is a module that makes it easy to implement require hooks. One of' +
   " the require hooks you're using uses it. One of these require hooks" +
   " didn't return anything from it's handler, so we don't know what to" +
   ' do. You might want to debug this.';
@@ -138,7 +138,7 @@ export function addHook(hook, opts = {}) {
 
     exts.forEach((ext) => {
       // if the current loader for the extension is our loader then unregister it and set the oldLoader again
-      // if not we can not do anything as we cannot remove a loader from within the loader-chain
+      // if not we cannot do anything as we cannot remove a loader from within the loader-chain
       if (Module._extensions[ext] === loaders[ext]) {
         if (!oldLoaders[ext]) {
           delete Module._extensions[ext];
