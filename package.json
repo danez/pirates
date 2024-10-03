@@ -38,7 +38,7 @@
     "decache": "4.6.2",
     "eslint": "5.16.0",
     "eslint-config-prettier": "4.3.0",
-    "eslint-plugin-import": "2.28.0",
+    "eslint-plugin-import": "2.31.0",
     "eslint-plugin-prettier": "3.4.1",
     "mock-require": "3.0.3",
     "nyc": "13.3.0",
