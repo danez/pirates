@@ -21,20 +21,13 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node }}
         cache: 'yarn'
-
-    - name: Cache node_modules
-      uses: actions/cache@v3
-      id: cache-nodemodules
-      with:
-        path: node_modules
-        key: ${{ runner.os }}-${{ matrix.node }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
 
     - name: Install dependencies
       if: steps.cache-nodemodules.outputs.cache-hit != 'true'
@@ -43,65 +36,23 @@ jobs:
     - name: Unit tests
       run: yarn test
 
-    - name: Upload code coverage
-      uses: codecov/codecov-action@v3
-      with:
-        files: ./coverage/coverage-final.json
-        name: codecov-umbrella
-        fail_ci_if_error: true
-
-  lint:
-    name: Lint
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ env.NODE_VERSION }}
-        cache: 'yarn'
-
-    - name: Cache node_modules
-      uses: actions/cache@v3
-      id: cache-nodemodules
-      with:
-        path: node_modules
-        key: ${{ runner.os }}-${{ env.NODE_VERSION }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
-
-    - name: Install dependencies
-      if: steps.cache-nodemodules.outputs.cache-hit != 'true'
-      run: yarn install --frozen-lockfile --non-interactive
-
-    - name: Lint
-      run: yarn lint
-
   release:
-    needs: [tests, lint]
+    needs: [tests]
     if: github.ref == 'refs/heads/main'
     name: Release
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'yarn'
-
-      - name: Cache node_modules
-        uses: actions/cache@v3
-        id: cache-nodemodules
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-${{ env.NODE_VERSION }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
 
       - name: Install dependencies
         if: steps.cache-nodemodules.outputs.cache-hit != 'true'

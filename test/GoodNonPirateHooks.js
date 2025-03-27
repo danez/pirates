@@ -1,12 +1,11 @@
 /* (c) 2015 Ari Porad (@ariporad) <http://ariporad.com>. License: ariporad.mit-license.org */
 import test from 'ava';
-import rewire from 'rewire';
 import { makeNonPiratesHook, assertModule } from './helpers/utils';
 
 const call = (f) => (typeof f === 'function' ? f() : undefined);
 
 test.beforeEach((t) => {
-  t.context = rewire('../');
+  t.context = require('../');
 });
 
 test('non-pirates hooks', (t) => {

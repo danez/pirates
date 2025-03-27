@@ -1,12 +1,12 @@
 /* (c) 2015 Ari Porad (@ariporad) <http://ariporad.com>. License: ariporad.mit-license.org */
 import test from 'ava';
-import rewire from 'rewire';
+import decache from 'decache';
 import { assertModule } from './helpers/utils';
 
 const call = (f) => f();
 
 test.beforeEach((t) => {
-  t.context = rewire('../');
+  t.context = require('../');
 });
 
 test('basics', (t) => {
@@ -78,8 +78,12 @@ test('matcher is called only once per file', (t) => {
     () => delete require.extensions['.foojs'],
   ];
 
-  rewire('./fixture/basics-foo'); // Rewire doesn't use the require cache.
-  rewire('./fixture/basics-foo.foojs'); // Rewire doesn't use the require cache.
+  decache('./fixture/basics-foo');
+  require('./fixture/basics-foo');
+
+
+  decache('./fixture/basics-foo.foojs');
+  require('./fixture/basics-foo.foojs');
 
   t.is(timesMatcherCalled, 2, 'matcher is only called once per file');
 

@@ -1,12 +1,11 @@
 /* (c) 2016 Ari Porad (@ariporad) <http://ariporad.com>. License: ariporad.mit-license.org */
 import test from 'ava';
-import rewire from 'rewire';
 import { assertModule } from './helpers/utils';
 
 const call = (f) => f();
 
 test.beforeEach((t) => {
-  t.context = rewire('../');
+  t.context = require('../');
 });
 
 test('exts', (t) => {
