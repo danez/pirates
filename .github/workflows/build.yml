@@ -30,7 +30,6 @@ jobs:
         cache: 'yarn'
 
     - name: Install dependencies
-      if: steps.cache-nodemodules.outputs.cache-hit != 'true'
       run: yarn install --frozen-lockfile --non-interactive
 
     - name: Unit tests
@@ -55,11 +54,9 @@ jobs:
           cache: 'yarn'
 
       - name: Install dependencies
-        if: steps.cache-nodemodules.outputs.cache-hit != 'true'
         run: yarn install --frozen-lockfile --non-interactive
 
       - name: Release
         run: npx semantic-release --branches main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
