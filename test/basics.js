@@ -4,6 +4,7 @@ import decache from 'decache';
 import { assertModule } from './helpers/utils';
 
 const call = (f) => f();
+const hasRegisterHooks = typeof require('module').registerHooks === 'function';
 
 test.beforeEach((t) => {
   t.context = require('../');
@@ -91,16 +92,28 @@ test('matcher is called only once per file', (t) => {
 });
 
 test('reverts to previous loader', (t) => {
-  require.extensions['.foojs'] = require.extensions['.js'];
-  const revert = t.context.addHook((code) => code.replace('@@a', '<a>'), {
-    exts: ['.foojs'],
-  });
+  if (hasRegisterHooks) {
+    // Modern (registerHooks) doesn't install a wrapper in require.extensions —
+    // it transforms via the load hook and only writes to require.extensions to
+    // keep Node's resolver happy.
+    const revert = t.context.addHook((code) => code.replace('@@a', '<a>'), {
+      exts: ['.foojs'],
+    });
+    assertModule(t, 'basics-foo.foojs', 'in basics-foo.foojs <a> @@b');
+    revert();
+    assertModule(t, 'basics-foo.foojs', 'in basics-foo.foojs @@a @@b');
+  } else {
+    require.extensions['.foojs'] = require.extensions['.js'];
+    const revert = t.context.addHook((code) => code.replace('@@a', '<a>'), {
+      exts: ['.foojs'],
+    });
 
-  t.not(require.extensions['.foojs'], require.extensions['.js']);
+    t.not(require.extensions['.foojs'], require.extensions['.js']);
 
-  revert();
+    revert();
 
-  t.is(require.extensions['.foojs'], require.extensions['.js']);
+    t.is(require.extensions['.foojs'], require.extensions['.js']);
+  }
 });
 
 test('reverts to nothing if no previous loader', (t) => {
