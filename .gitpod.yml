@@ -1,6 +1,0 @@
-tasks:
-  - init: yarn install && yarn run build
-vscode:
-  extensions:
-    - dbaeumer.vscode-eslint
-
